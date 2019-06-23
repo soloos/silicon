@@ -1,0 +1,9 @@
+/env.sh
+/bin/
+/pkg/
+/src/
+/test.data/
+.*.swp
+.*.swo
+*.log
+/vendor/
