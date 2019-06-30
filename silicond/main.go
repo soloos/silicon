@@ -17,6 +17,6 @@ func main() {
 	err = util.LoadOptionsFile(optionsFile, &options)
 	util.AssertErrIsNil(err)
 
-	env.Init(options)
+	util.AssertErrIsNil(env.Init(options))
 	util.AssertErrIsNil(env.Serve())
 }

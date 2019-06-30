@@ -22,18 +22,18 @@ func (p *SiliconAgent) installSchema(dbDriver string) error {
 func (p *SiliconAgent) prepareSchemaSqls(dbDriver string) []string {
 	var sqls []string
 
-	// sqls = append(sqls, `
-	// create table if not exists b_silicon_conf (
-	// peer_id char(64),
-	// peer_type char(16),
-	// conf text,
-	// primary key(peer_id)
-	// );
-	// `)
+	sqls = append(sqls, `
+	create table if not exists b_snetpeer (
+		peer_id char(64),
+		address char(128),
+		service_protocol char(8),
+		primary key(peer_id)
+	);
+	`)
 
 	// sqls = append(sqls, `
-	// create index if not exists i_b_silicon_conf
-	// on b_silicon_conf(peer_type);
+	// create index if not exists i_b_snetpeer
+	// on b_snetpeer(service_protocol);
 	// `)
 
 	return sqls
