@@ -1,3 +1,3 @@
 #!/bin/bash
-./scripts/stop.silicond.sh
-./scripts/start.silicond.sh
+./scripts/stop.soloboatd.sh
+./scripts/start.soloboatd.sh

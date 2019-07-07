@@ -1,27 +1,27 @@
-package agent
+package soloboatsvr
 
 import (
 	"soloos/common/sdbapi"
 	"soloos/common/snettypes"
 	"soloos/common/soloosbase"
-	"soloos/silicon/silicontypes"
+	"soloos/soloboat/soloboattypes"
 )
 
-type SiliconAgent struct {
+type SoloBoatSvr struct {
 	*soloosbase.SoloOSEnv
-	options       SiliconAgentOptions
+	options       SoloBoatSvrOptions
 	peer          snettypes.Peer
 	dbConn        sdbapi.Connection
 	webServer     WebServer
 	servicesCount int
 }
 
-func (p *SiliconAgent) initSNetPeer() error {
+func (p *SoloBoatSvr) initSNetPeer() error {
 	var err error
 
 	p.peer.ID = snettypes.StrToPeerID(p.options.PeerID)
 	p.peer.SetAddress(p.options.WebServerOptions.ServeStr)
-	p.peer.ServiceProtocol = silicontypes.DefaultSiliconRPCProtocol
+	p.peer.ServiceProtocol = soloboattypes.DefaultSiliconRPCProtocol
 
 	err = p.SoloOSEnv.SNetDriver.RegisterPeer(p.peer)
 	if err != nil {
@@ -31,7 +31,7 @@ func (p *SiliconAgent) initSNetPeer() error {
 	return nil
 }
 
-func (p *SiliconAgent) initDBConn() error {
+func (p *SoloBoatSvr) initDBConn() error {
 	var err error
 	err = p.dbConn.Init(p.options.DBDriver, p.options.Dsn)
 	if err != nil {
@@ -46,7 +46,7 @@ func (p *SiliconAgent) initDBConn() error {
 	return nil
 }
 
-func (p *SiliconAgent) Init(soloOSEnv *soloosbase.SoloOSEnv, options SiliconAgentOptions) error {
+func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrOptions) error {
 	var err error
 
 	p.SoloOSEnv = soloOSEnv
@@ -72,11 +72,11 @@ func (p *SiliconAgent) Init(soloOSEnv *soloosbase.SoloOSEnv, options SiliconAgen
 	return nil
 }
 
-func (p *SiliconAgent) GetPeerID() snettypes.PeerID {
+func (p *SoloBoatSvr) GetPeerID() snettypes.PeerID {
 	return p.peer.ID
 }
 
-func (p *SiliconAgent) Serve() error {
+func (p *SoloBoatSvr) Serve() error {
 	var errChans = make(chan error, p.servicesCount)
 
 	go func(errChans chan error) {
@@ -98,7 +98,7 @@ func (p *SiliconAgent) Serve() error {
 	return err
 }
 
-func (p *SiliconAgent) Close() error {
+func (p *SoloBoatSvr) Close() error {
 	var err error
 	err = p.SoloOSEnv.SNetDriver.CloseServer()
 	if err != nil {

@@ -2,13 +2,13 @@ package main
 
 import (
 	"soloos/common/soloosbase"
-	"soloos/silicon/agent"
+	"soloos/soloboat/soloboatsvr"
 )
 
 type Env struct {
 	SoloOSEnv soloosbase.SoloOSEnv
 
-	SiliconAgent agent.SiliconAgent
+	SoloBoatSvr soloboatsvr.SoloBoatSvr
 }
 
 func (p *Env) Init(options Options) error {
@@ -19,7 +19,7 @@ func (p *Env) Init(options Options) error {
 		return err
 	}
 
-	err = p.SiliconAgent.Init(&p.SoloOSEnv, options.SiliconAgentOptions)
+	err = p.SoloBoatSvr.Init(&p.SoloOSEnv, options.SoloBoatSvrOptions)
 	if err != nil {
 		return err
 	}
@@ -28,7 +28,7 @@ func (p *Env) Init(options Options) error {
 }
 
 func (p *Env) Serve() error {
-	return p.SiliconAgent.Serve()
+	return p.SoloBoatSvr.Serve()
 }
 
 func (p *Env) Close() error {

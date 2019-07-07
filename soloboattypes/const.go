@@ -1,4 +1,4 @@
-package silicontypes
+package soloboattypes
 
 import (
 	"soloos/common/snettypes"

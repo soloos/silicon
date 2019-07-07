@@ -1,4 +1,4 @@
-package agent
+package soloboatsvr
 
 import (
 	"database/sql"
@@ -9,7 +9,7 @@ import (
 
 type ListSNetPeerFromDB func(peer snettypes.Peer) bool
 
-func (p *SiliconAgent) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
+func (p *SoloBoatSvr) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
 	var (
 		sess        sdbapi.Session
 		sqlRows     *sql.Rows
@@ -52,7 +52,7 @@ QUERY_DONE:
 	return err
 }
 
-func (p *SiliconAgent) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Peer, error) {
+func (p *SoloBoatSvr) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Peer, error) {
 	var (
 		sess        sdbapi.Session
 		sqlRows     *sql.Rows
@@ -95,7 +95,7 @@ QUERY_DONE:
 	return peer, err
 }
 
-func (p *SiliconAgent) RegisterSNetPeerInDB(peer snettypes.Peer) error {
+func (p *SoloBoatSvr) RegisterSNetPeerInDB(peer snettypes.Peer) error {
 	var (
 		sess sdbapi.Session
 		err  error

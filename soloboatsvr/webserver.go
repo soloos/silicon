@@ -1,19 +1,19 @@
-package agent
+package soloboatsvr
 
 import (
 	"soloos/common/iron"
 )
 
 type WebServer struct {
-	agent  *SiliconAgent
+	soloBoatSvr  *SoloBoatSvr
 	server iron.Server
 }
 
-func (p *WebServer) Init(agent *SiliconAgent) error {
+func (p *WebServer) Init(soloBoatSvr *SoloBoatSvr) error {
 	var err error
 
-	p.agent = agent
-	err = p.server.Init(p.agent.options.WebServerOptions)
+	p.soloBoatSvr = soloBoatSvr
+	err = p.server.Init(p.soloBoatSvr.options.WebServerOptions)
 	if err != nil {
 		return err
 	}

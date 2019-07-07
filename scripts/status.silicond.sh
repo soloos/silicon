@@ -1,2 +1,2 @@
 #!/bin/bash
-ps aux|grep silicon|grep bin|grep -v grep 
+ps aux|grep soloboat|grep bin|grep -v grep 

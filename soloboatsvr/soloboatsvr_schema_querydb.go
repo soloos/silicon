@@ -1,8 +1,8 @@
-package agent
+package soloboatsvr
 
 import "soloos/common/log"
 
-func (p *SiliconAgent) installSchema(dbDriver string) error {
+func (p *SoloBoatSvr) installSchema(dbDriver string) error {
 	var (
 		sqls []string
 		err  error
@@ -19,7 +19,7 @@ func (p *SiliconAgent) installSchema(dbDriver string) error {
 	return nil
 }
 
-func (p *SiliconAgent) prepareSchemaSqls(dbDriver string) []string {
+func (p *SoloBoatSvr) prepareSchemaSqls(dbDriver string) []string {
 	var sqls []string
 
 	sqls = append(sqls, `

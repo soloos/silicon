@@ -1,10 +1,10 @@
-package agent
+package soloboatsvr
 
 import (
 	"soloos/common/snettypes"
 )
 
-func (p *SiliconAgent) StartSNetDriverServer() error {
+func (p *SoloBoatSvr) StartSNetDriverServer() error {
 	var err error
 
 	err = p.ListSNetPeerFromDB(func(peer snettypes.Peer) bool {

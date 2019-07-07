@@ -1,8 +1,8 @@
-package agent
+package soloboatsvr
 
 import "soloos/common/iron"
 
-type SiliconAgentOptions struct {
+type SoloBoatSvrOptions struct {
 	SNetDriverListenAddr string
 	SNetDriverServeAddr  string
 	WebServerOptions     iron.Options

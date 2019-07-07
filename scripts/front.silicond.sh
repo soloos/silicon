@@ -1,2 +1,2 @@
 #!/bin/bash
-bin/silicond ./scripts/conf/silicon.json
+bin/soloboatd ./scripts/conf/soloboat.json

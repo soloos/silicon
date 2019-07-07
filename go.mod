@@ -1,4 +1,4 @@
-module soloos/silicon
+module soloos/soloboat
 
 go 1.12
 

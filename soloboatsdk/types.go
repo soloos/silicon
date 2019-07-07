@@ -1,4 +1,4 @@
-package siliconsdk
+package soloboatsdk
 
 import "soloos/common/snettypes"
 

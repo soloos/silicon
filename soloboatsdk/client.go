@@ -1,4 +1,4 @@
-package siliconsdk
+package soloboatsdk
 
 import (
 	"soloos/common/iron"
@@ -6,17 +6,17 @@ import (
 )
 
 type Client struct {
-	siliconServeAddr string
+	soloboatServeAddr string
 }
 
-func (p *Client) Init(siliconServeAddr string) error {
-	p.siliconServeAddr = siliconServeAddr
+func (p *Client) Init(soloboatServeAddr string) error {
+	p.soloboatServeAddr = soloboatServeAddr
 	return nil
 }
 
 func (p *Client) HeartBeat(peerID snettypes.PeerID) error {
 	var (
-		urlPath = p.siliconServeAddr + "/Peer/HeartBeat"
+		urlPath = p.soloboatServeAddr + "/Peer/HeartBeat"
 		req     HeartBeatReqJSON
 		resp    HeartBeatRespJSON
 	)

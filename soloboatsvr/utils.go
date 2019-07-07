@@ -1,4 +1,4 @@
-package agent
+package soloboatsvr
 
 import (
 	"soloos/common/snettypes"

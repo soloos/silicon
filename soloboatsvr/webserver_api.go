@@ -1,4 +1,4 @@
-package agent
+package soloboatsvr
 
 func (p *WebServer) prepareApi() error {
 	p.server.Router("/Api/Peer/List", p.apiPeerList)
