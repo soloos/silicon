@@ -9,7 +9,7 @@ import (
 
 type ListSNetPeerFromDB func(peer snettypes.Peer) bool
 
-func (p *SoloBoatSvr) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
+func (p *SNetDriver) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
 	var (
 		sess        sdbapi.Session
 		sqlRows     *sql.Rows
@@ -20,7 +20,7 @@ func (p *SoloBoatSvr) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
 		err         error
 	)
 
-	err = p.dbConn.InitSession(&sess)
+	err = p.soloBoatSvr.dbConn.InitSession(&sess)
 	if err != nil {
 		goto QUERY_DONE
 	}
@@ -52,7 +52,7 @@ QUERY_DONE:
 	return err
 }
 
-func (p *SoloBoatSvr) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Peer, error) {
+func (p *SNetDriver) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Peer, error) {
 	var (
 		sess        sdbapi.Session
 		sqlRows     *sql.Rows
@@ -62,7 +62,7 @@ func (p *SoloBoatSvr) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Pe
 		err         error
 	)
 
-	err = p.dbConn.InitSession(&sess)
+	err = p.soloBoatSvr.dbConn.InitSession(&sess)
 	if err != nil {
 		goto QUERY_DONE
 	}
@@ -95,13 +95,13 @@ QUERY_DONE:
 	return peer, err
 }
 
-func (p *SoloBoatSvr) RegisterSNetPeerInDB(peer snettypes.Peer) error {
+func (p *SNetDriver) RegisterSNetPeerInDB(peer snettypes.Peer) error {
 	var (
 		sess sdbapi.Session
 		err  error
 	)
 
-	err = p.dbConn.InitSession(&sess)
+	err = p.soloBoatSvr.dbConn.InitSession(&sess)
 	if err != nil {
 		return err
 	}

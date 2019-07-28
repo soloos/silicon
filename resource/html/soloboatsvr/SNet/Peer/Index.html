@@ -1,0 +1,35 @@
+<? define "Content"?>
+<div class="Card">
+  <div class="CardHead">
+    SNetPeer
+  </div>
+  <div class="CardBody">
+    <table class="SimpleTable">
+      <thead>
+        <tr>
+          <td>类型</td>
+          <td>ID</td>
+          <td>地址</td>
+        </tr>
+      </thead>
+      <tbody>
+        <? range $i, $peer := .SNetPeerList ?>
+        <tr>
+          <td>
+            <? $peer.ServiceProtocol ?>
+          </td>
+          <td>
+            <small>
+            <? $peer.PeerID ?>
+            </small>
+          </td>
+          <td>
+            <? $peer.Address ?>
+          </td>
+        </tr>
+        <? end ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+<? end ?>

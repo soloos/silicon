@@ -7,7 +7,10 @@ all:soloboatsvrd
 soloboatsvrd:
 	$(SOLOBOAT_PREFIX) go build -i -ldflags '$(SOLOBOAT_LDFLAGS)' -o ./bin/soloboatsvrd ./soloboatsvrd
 
+sidecard:
+	$(SOLOBOAT_PREFIX) go build -i -ldflags '$(SOLOBOAT_LDFLAGS)' -o ./bin/sidecard ./sidecard
+
 include ./make/test
 include ./make/bench
 
-.PHONY:all soloboatsvrd test
+.PHONY:all soloboatsvrd sidecard test

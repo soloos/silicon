@@ -1,0 +1,131 @@
+<? define "Frame"?>
+<html>
+  <head>
+    <title>SoloBoat</title>
+    <link rel="stylesheet" href="/static/soloboatsvr/css/simple-grid.min.css">
+    <style>
+body {
+  background:#F5F7FB;
+  padding:0;
+  margin:0;
+}
+
+#Frame {
+  width:100%;
+  padding:2.1rem;
+  box-sizing:border-box;
+}
+
+.container {
+  max-width:100%;
+}
+
+#MainMenu {
+  padding:0.8rem;
+}
+
+#MainMenu hr {
+  display: block; height: 1px;
+  border: 0; 
+  border-top: 1px solid #EAEBF3;
+  margin: 1em 0; padding: 0; 
+}
+
+#MainMenu ul {
+  list-style:none;
+  padding:0rem;
+}
+
+#MainMenu ul li>a {
+  color:#A7ADC4;
+  padding:0.5rem;
+  display:block;
+  text-decoration:none;
+}
+
+#MainMenu ul li>a.Active {
+  color:#202537;
+}
+
+.Card {
+  width:100%;
+  border-radius:0.6rem;
+  background:#ffffff;
+  border:1px solid #EEF2F6;
+}
+
+.Card .CardHead {
+  padding:1.5rem;
+  border-bottom:1px solid #EEF2F6;
+}
+
+.Card .CardBody {
+  padding:1.5rem;
+}
+
+.SimpleTable {
+  width:100%;
+}
+
+.SimpleTable tr td {
+  --color:#363F5C;
+  color:#696F84;
+  padding:0.4rem 0.6rem;
+  border-bottom:1px solid #EEF2F6;
+}
+
+.SimpleTable tr:last-child td {
+  border-bottom:0rem;
+}
+
+.SimpleTable thead tr td {
+  color:#AFB2BB;
+}
+
+.SimpleTable small {
+  font-size:6px;
+}
+    </style>
+  </head>
+  <body>
+    <div id="Frame" class="container">
+      <div class="row">
+        <div class="col-2">
+          <div id="MainMenu">
+            <hr />
+          <ul>
+            <li>
+              <a href="/SDFS/NameNode"> 
+                Badger
+              </a>
+            </li>
+            <li>
+              <a href="/SDFS/NameNode"<? if eq .Module.Name "SDFSNameNode" ?> class="Active"<? end ?>> 
+                SDFS - NameNode 
+              </a>
+            </li>
+            <li>
+              <a href="/SDFS/NameNode"> 
+                SDFS - DataNode
+              </a>
+            </li>
+            <li>
+              <a href="/SDFS/NameNode"> 
+                SWAL - Agent
+              </a>
+            </li>
+            <li>
+              <a href="/SNet/Peer"<? if eq .Module.Name "SNetPeer" ?> class="Active"<? end ?>> 
+                SNetPeer
+              </a>
+            </li>
+          </ul>
+        </div>
+        </div>
+        <div class="col-10">
+          <? template "Content" . ?>
+        </div>
+      </div>
+  </body>
+</html>
+<? end ?>

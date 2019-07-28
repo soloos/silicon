@@ -16,7 +16,7 @@ func (p *Client) Init(soloboatServeAddr string) error {
 
 func (p *Client) HeartBeat(peerID snettypes.PeerID) error {
 	var (
-		urlPath = p.soloboatServeAddr + "/Peer/HeartBeat"
+		urlPath = p.soloboatServeAddr + "/Api/Peer/HeartBeat"
 		req     HeartBeatReqJSON
 		resp    HeartBeatRespJSON
 	)

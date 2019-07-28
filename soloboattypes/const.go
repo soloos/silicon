@@ -9,5 +9,5 @@ const (
 )
 
 var (
-	DefaultSiliconRPCProtocol = snettypes.ProtocolSilicon
+	DefaultSiliconRPCProtocol = snettypes.ProtocolSoloBoat
 )

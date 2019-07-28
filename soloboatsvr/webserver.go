@@ -5,8 +5,8 @@ import (
 )
 
 type WebServer struct {
-	soloBoatSvr  *SoloBoatSvr
-	server iron.Server
+	soloBoatSvr *SoloBoatSvr
+	server      iron.Server
 }
 
 func (p *WebServer) Init(soloBoatSvr *SoloBoatSvr) error {
@@ -18,7 +18,10 @@ func (p *WebServer) Init(soloBoatSvr *SoloBoatSvr) error {
 		return err
 	}
 
-	p.server.Router("/", p.ctrMain)
+	err = p.prepareCtr()
+	if err != nil {
+		return err
+	}
 
 	err = p.prepareApi()
 	if err != nil {

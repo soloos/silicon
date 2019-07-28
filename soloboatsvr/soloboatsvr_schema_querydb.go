@@ -23,13 +23,21 @@ func (p *SoloBoatSvr) prepareSchemaSqls(dbDriver string) []string {
 	var sqls []string
 
 	sqls = append(sqls, `
-	create table if not exists b_snetpeer (
+	create table if not exists b_sidecar (
 		peer_id char(64),
-		address char(128),
-		service_protocol char(8),
+		description varchar(256),
 		primary key(peer_id)
 	);
 	`)
+
+	sqls = append(sqls, `
+       create table if not exists b_snetpeer (
+               peer_id char(64),
+               address char(128),
+               service_protocol char(8),
+               primary key(peer_id)
+       );
+       `)
 
 	// sqls = append(sqls, `
 	// create index if not exists i_b_snetpeer

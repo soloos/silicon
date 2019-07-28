@@ -1,6 +1,7 @@
 package soloboatsvr
 
 import (
+	"soloos/common/log"
 	"soloos/common/sdbapi"
 	"soloos/common/snettypes"
 	"soloos/common/soloosbase"
@@ -14,6 +15,9 @@ type SoloBoatSvr struct {
 	dbConn        sdbapi.Connection
 	webServer     WebServer
 	servicesCount int
+
+	snetDriver    SNetDriver
+	sideCarDriver SideCarDriver
 }
 
 func (p *SoloBoatSvr) initSNetPeer() error {
@@ -46,6 +50,10 @@ func (p *SoloBoatSvr) initDBConn() error {
 	return nil
 }
 
+func (p *SoloBoatSvr) initSideCarDriver() error {
+	return nil
+}
+
 func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrOptions) error {
 	var err error
 
@@ -67,6 +75,16 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 		return err
 	}
 
+	err = p.snetDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
+	err = p.sideCarDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
 	p.servicesCount = 2
 
 	return nil
@@ -80,7 +98,7 @@ func (p *SoloBoatSvr) Serve() error {
 	var errChans = make(chan error, p.servicesCount)
 
 	go func(errChans chan error) {
-		errChans <- p.StartSNetDriverServer()
+		errChans <- p.snetDriver.Serve()
 	}(errChans)
 
 	go func(errChans chan error) {
@@ -91,6 +109,7 @@ func (p *SoloBoatSvr) Serve() error {
 	for i := 0; i < p.servicesCount; i++ {
 		var tmperr = <-errChans
 		if tmperr != nil {
+			log.Error("SoloBoatSvr Serve error, err:", tmperr)
 			err = tmperr
 		}
 	}

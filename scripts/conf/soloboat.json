@@ -7,6 +7,8 @@
     "PProfListenAddr": "0.0.0.0:20703",
     "WebServerOptions": {
         "ServeStr": "http://192.168.56.100:20702",
-        "ListenStr": "0.0.0.0:20702"
+        "ListenStr": "0.0.0.0:20702",
+        "SiteViewDir": "/opt/soloos/soloboat/resource/html/soloboatsvr/",
+        "SiteStaticBasePath": "/opt/soloos/soloboat/resource/static/"
     }
 }
