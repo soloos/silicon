@@ -1,10 +1,10 @@
 {
     "SNetDriverListenAddr": "0.0.0.0:20701",
     "SNetDriverServeAddr": "http://192.168.56.100:20701",
-    "PeerID": "SILICON_10000000000000000000000000000000000000000000000000000000",
     "DBDriver": "mysql",
     "Dsn": "root:hello@/sdfs_test",
     "PProfListenAddr": "0.0.0.0:20703",
+    "WebPeerID": "SOLOBOAT_1_00000000000000000000000000000000000000000000000000000",
     "WebServerOptions": {
         "ServeStr": "http://192.168.56.100:20702",
         "ListenStr": "0.0.0.0:20702",

@@ -11,6 +11,10 @@ func (p *WebServer) prepareCtr() error {
 	p.server.Router("/SDFS/NameNode", p.ctrSDFSNameNode)
 	p.server.AssignView("/SDFS/NameNode/Index", vcom, vpre+"/SDFS/NameNode/Index.html")
 
+	p.server.HookBeforeHttpHandle("/SDFS/DataNode", p.prepareCtrSDFSDataNode)
+	p.server.Router("/SDFS/DataNode", p.ctrSDFSDataNode)
+	p.server.AssignView("/SDFS/DataNode/Index", vcom, vpre+"/SDFS/DataNode/Index.html")
+
 	p.server.HookBeforeHttpHandle("/SNet/Peer", p.prepareCtrSNetPeer)
 	p.server.Router("/SNet/Peer", p.ctrSNetPeer)
 	p.server.AssignView("/SNet/Peer/Index", vcom, vpre+"/SNet/Peer/Index.html")

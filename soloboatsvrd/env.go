@@ -14,7 +14,7 @@ type Env struct {
 func (p *Env) Init(options Options) error {
 	var err error
 
-	err = p.SoloOSEnv.Init()
+	err = p.SoloOSEnv.InitWithSNet("")
 	if err != nil {
 		return err
 	}

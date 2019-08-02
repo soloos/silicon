@@ -11,26 +11,21 @@ import (
 type SoloBoatSvr struct {
 	*soloosbase.SoloOSEnv
 	options       SoloBoatSvrOptions
-	peer          snettypes.Peer
+	webPeer       snettypes.Peer
 	dbConn        sdbapi.Connection
 	webServer     WebServer
 	servicesCount int
 
-	snetDriver    SNetDriver
-	sideCarDriver SideCarDriver
+	snetDriver         SNetDriver
+	sideCarDriver      SideCarDriver
+	sdfsNameNodeDriver SDFSNameNodeDriver
+	sdfsDataNodeDriver SDFSDataNodeDriver
 }
 
 func (p *SoloBoatSvr) initSNetPeer() error {
-	var err error
-
-	p.peer.ID = snettypes.StrToPeerID(p.options.PeerID)
-	p.peer.SetAddress(p.options.WebServerOptions.ServeStr)
-	p.peer.ServiceProtocol = soloboattypes.DefaultSiliconRPCProtocol
-
-	err = p.SoloOSEnv.SNetDriver.RegisterPeer(p.peer)
-	if err != nil {
-		return err
-	}
+	p.webPeer.ID = snettypes.StrToPeerID(p.options.WebPeerID)
+	p.webPeer.SetAddress(p.options.WebServerOptions.ServeStr)
+	p.webPeer.ServiceProtocol = soloboattypes.DefaultSoloBoatRPCProtocol
 
 	return nil
 }
@@ -70,17 +65,27 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 		return err
 	}
 
-	err = p.webServer.Init(p)
-	if err != nil {
-		return err
-	}
-
 	err = p.snetDriver.Init(p)
 	if err != nil {
 		return err
 	}
 
+	err = p.webServer.Init(p)
+	if err != nil {
+		return err
+	}
+
 	err = p.sideCarDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
+	err = p.sdfsNameNodeDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
+	err = p.sdfsDataNodeDriver.Init(p)
 	if err != nil {
 		return err
 	}
@@ -91,7 +96,7 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 }
 
 func (p *SoloBoatSvr) GetPeerID() snettypes.PeerID {
-	return p.peer.ID
+	return p.webPeer.ID
 }
 
 func (p *SoloBoatSvr) Serve() error {

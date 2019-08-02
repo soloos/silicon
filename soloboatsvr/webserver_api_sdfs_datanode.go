@@ -2,23 +2,22 @@ package soloboatsvr
 
 import (
 	"soloos/common/iron"
-	"soloos/common/log"
+	"soloos/common/sdfsapitypes"
 	"soloos/common/snettypes"
-	"soloos/soloboat/soloboatsdk"
 )
 
 func (p *WebServer) apiSDFSDataNodeHeartBeat(ir *iron.Request) {
 	var (
-		req soloboatsdk.HeartBeatReqJSON
-		err error
+		heartbeat sdfsapitypes.DataNodeHeartBeat
+		err       error
 	)
 
-	err = ir.DecodeBodyJSONData(&req)
+	err = ir.DecodeBodyJSONData(&heartbeat)
 	if err != nil {
 		ir.ApiOutput(nil, snettypes.CODE_502, err.Error())
 		return
 	}
 
-	log.Error("fuck heatbeat", req.PeerID)
-	ir.ApiOutput(nil, snettypes.CODE_OK, "")
+	p.soloBoatSvr.sdfsDataNodeDriver.SDFSDataNodeHeartBeat(heartbeat)
+	ir.ApiOutput(nil, snettypes.CODE_OK, "heartbeat success")
 }

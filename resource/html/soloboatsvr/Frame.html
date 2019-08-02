@@ -72,6 +72,7 @@ body {
   color:#696F84;
   padding:0.4rem 0.6rem;
   border-bottom:1px solid #EEF2F6;
+  word-break:break-all;
 }
 
 .SimpleTable tr:last-child td {
@@ -105,8 +106,8 @@ body {
               </a>
             </li>
             <li>
-              <a href="/SDFS/NameNode"> 
-                SDFS - DataNode
+              <a href="/SDFS/DataNode"<? if eq .Module.Name "SDFSDataNode" ?> class="Active"<? end ?>> 
+                SDFS - DataNode 
               </a>
             </li>
             <li>

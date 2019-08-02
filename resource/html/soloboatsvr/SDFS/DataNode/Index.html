@@ -1,7 +1,7 @@
 <? define "Content"?>
 <div class="Card">
   <div class="CardHead">
-    NameNode
+    DataNode
   </div>
   <div class="CardBody">
     <table class="SimpleTable">
@@ -14,19 +14,19 @@
         </tr>
       </thead>
       <tbody>
-        <? range $i, $nameNode := .NameNodeArr ?>
+        <? range $i, $dataNode := .DataNodeArr ?>
         <tr>
           <td width=32%>
-            <? $nameNode.SRPCPeerID ?>
+            <? $dataNode.SRPCPeerID ?>
           </td>
           <td>
-            <? $nameNode.LastHeatBeatAtStr ?>
+            <? $dataNode.LastHeatBeatAtStr ?>
           </td>
           <td>
-            <? $nameNode.SRPCServerAddr ?>
+            <? $dataNode.SRPCServerAddr ?>
           </td>
           <td>
-            <? $nameNode.WebServerAddr ?>
+            <? $dataNode.WebServerAddr ?>
           </td>
         </tr>
         <? end ?>

@@ -23,6 +23,6 @@ func (p *WebServer) ctrSNetPeer(ir *iron.Request) {
 		ret = append(ret, snettypes.PeerToPeerJSON(peer))
 		return true
 	})
-	ir.ViewData["SNetPeerList"] = ret
+	ir.ViewData["SNetPeerArr"] = ret
 	ir.Render("/SNet/Peer/Index")
 }

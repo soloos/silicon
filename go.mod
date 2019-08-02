@@ -10,4 +10,5 @@ require (
 replace (
 	soloos/common v0.0.0 => /soloos/common
 	soloos/sdbone v0.0.0 => /soloos/sdbone
+	soloos/soloboat v0.0.0 => /soloos/soloboat
 )

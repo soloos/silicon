@@ -2,30 +2,22 @@ package soloboatsvr
 
 import (
 	"soloos/common/iron"
-	"soloos/common/log"
 	"soloos/common/snettypes"
-	"soloos/soloboat/soloboatsdk"
-	"soloos/soloboat/soloboattypes"
+	"soloos/soloboat/sidecartypes"
 )
 
 func (p *WebServer) apiSideCarHeartBeat(ir *iron.Request) {
 	var (
-		req soloboatsdk.SideCarInfoReqJSON
-		err error
+		heartbeat sidecartypes.SideCarHeartBeat
+		err       error
 	)
 
-	err = ir.DecodeBodyJSONData(&req)
+	err = ir.DecodeBodyJSONData(&heartbeat)
 	if err != nil {
 		ir.ApiOutput(nil, snettypes.CODE_502, err.Error())
 		return
 	}
 
-	var sideCarInfo = soloboattypes.DecodeSideCarInfoJSON(req.SideCarInfoJSON)
-	err = p.soloBoatSvr.sideCarDriver.SidCarHeartBeat(sideCarInfo)
-	log.Error("fuck register", req.PeerID, err)
-	if err != nil {
-		return
-	}
-
-	ir.ApiOutput(nil, snettypes.CODE_OK, "")
+	p.soloBoatSvr.sideCarDriver.SideCarHeartBeat(heartbeat)
+	ir.ApiOutput(nil, snettypes.CODE_OK, "heartbeat success")
 }

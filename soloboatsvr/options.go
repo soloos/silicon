@@ -7,9 +7,9 @@ type SoloBoatSvrOptions struct {
 	SNetDriverServeAddr  string
 	WebServerOptions     iron.Options
 
-	PeerID   string
-	DBDriver string
-	Dsn      string
+	WebPeerID string
+	DBDriver  string
+	Dsn       string
 
 	PProfListenAddr string
 }

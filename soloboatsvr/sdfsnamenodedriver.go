@@ -1,9 +1,11 @@
 package soloboatsvr
 
 import (
-	"soloos/common/util"
+	"soloos/common/sdfsapitypes"
+	"soloos/common/snettypes"
 	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
+	"time"
 )
 
 type SDFSNameNodeDriver struct {
@@ -23,31 +25,47 @@ func (p *SDFSNameNodeDriver) Init(soloBoatSvr *SoloBoatSvr) error {
 	return nil
 }
 
-func (p *SDFSNameNodeDriver) SDFSNameNodeHeartBeat(sdfsNameNode soloboattypes.SDFSNameNodeInfo) error {
+func (p *SDFSNameNodeDriver) SDFSNameNodeHeartBeat(heartbeat sdfsapitypes.NameNodeHeartBeat) error {
 	var err error
-	var isNeedUpdateInDB bool = false
-	var uObject, afterSetNewObj = p.sdfsNameNodeTable.MustGetObject(sdfsNameNode.ID)
+	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
+	var uObject, afterSetNewObj = p.sdfsNameNodeTable.MustGetObject(peerID)
 	var uSDFSNameNodeInfo = soloboattypes.SDFSNameNodeInfoUintptr(uObject)
 	if afterSetNewObj != nil {
 		afterSetNewObj()
-		// uSDFSNameNodeInfo.Ptr().SetAddress(peer.AddressStr())
-		// uSDFSNameNodeInfo.Ptr().ServiceProtocol = peer.ServiceProtocol
-		isNeedUpdateInDB = true
-	} else {
-		// isNeedUpdateInDB = uSDFSNameNodeInfo.Ptr().Address != peer.Address ||
-		// uSDFSNameNodeInfo.Ptr().ServiceProtocol != peer.ServiceProtocol
 	}
 
-	util.Ignore(uSDFSNameNodeInfo)
-	util.Ignore(err)
-	util.Ignore(isNeedUpdateInDB)
-
-	// if isNeedUpdateInDB {
-	// err = p.StoreSDFSNameNodeInDB(*uSDFSNameNodeInfo.Ptr())
-	// if err != nil {
-	// return err
-	// }
-	// }
+	uSDFSNameNodeInfo.Ptr().LastHeatBeatAt = time.Now()
+	uSDFSNameNodeInfo.Ptr().NameNodeHeartBeat = heartbeat
+	err = p.FormatSDFSNameNodeInfo(uSDFSNameNodeInfo.Ptr())
+	if err != nil {
+		return err
+	}
 
 	return nil
+}
+
+func (p *SDFSNameNodeDriver) FormatSDFSNameNodeInfo(sdfsNameNodeInfo *soloboattypes.SDFSNameNodeInfo) error {
+	var (
+		peer snettypes.Peer
+		err  error
+	)
+
+	sdfsNameNodeInfo.LastHeatBeatAtStr = sdfsNameNodeInfo.LastHeatBeatAt.Format("2006-01-02 15:04:05")
+	peer, err = p.soloBoatSvr.SNetDriver.GetPeer(snettypes.StrToPeerID(sdfsNameNodeInfo.SRPCPeerID))
+	if err != nil {
+		return err
+	}
+	sdfsNameNodeInfo.SRPCServerAddr = peer.AddressStr()
+
+	peer, err = p.soloBoatSvr.SNetDriver.GetPeer(snettypes.StrToPeerID(sdfsNameNodeInfo.WebPeerID))
+	if err != nil {
+		return err
+	}
+	sdfsNameNodeInfo.WebServerAddr = peer.AddressStr()
+
+	return nil
+}
+
+func (p *SDFSNameNodeDriver) ListObject(listPeer offheap.LKVTableListObjectWithBytes64) {
+	p.sdfsNameNodeTable.ListObject(listPeer)
 }

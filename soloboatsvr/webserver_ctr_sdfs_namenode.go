@@ -1,6 +1,10 @@
 package soloboatsvr
 
-import "soloos/common/iron"
+import (
+	"soloos/common/iron"
+	"soloos/sdbone/offheap"
+	"soloos/soloboat/soloboattypes"
+)
 
 func (p *WebServer) prepareCtrSDFSNameNode(ir *iron.Request) bool {
 	var module = ViewModule{
@@ -13,5 +17,12 @@ func (p *WebServer) prepareCtrSDFSNameNode(ir *iron.Request) bool {
 }
 
 func (p *WebServer) ctrSDFSNameNode(ir *iron.Request) {
+	var ret []soloboattypes.SDFSNameNodeInfo
+	p.soloBoatSvr.sdfsNameNodeDriver.sdfsNameNodeTable.ListObject(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
+		var obj = *soloboattypes.SDFSNameNodeInfoUintptr(uObj).Ptr()
+		ret = append(ret, obj)
+		return true
+	})
+	ir.ViewData["NameNodeArr"] = ret
 	ir.Render("/SDFS/NameNode/Index")
 }
