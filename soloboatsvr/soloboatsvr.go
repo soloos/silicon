@@ -20,6 +20,7 @@ type SoloBoatSvr struct {
 	sideCarDriver      SideCarDriver
 	sdfsNameNodeDriver SDFSNameNodeDriver
 	sdfsDataNodeDriver SDFSDataNodeDriver
+	swalBrokerDriver   SWALBrokerDriver
 }
 
 func (p *SoloBoatSvr) initSNetPeer() error {
