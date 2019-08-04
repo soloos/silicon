@@ -18,6 +18,10 @@ func (p *WebServer) apiSDFSNameNodeHeartBeat(ir *iron.Request) {
 		return
 	}
 
-	p.soloBoatSvr.sdfsNameNodeDriver.SDFSNameNodeHeartBeat(heartbeat)
+	err = p.soloBoatSvr.sdfsNameNodeDriver.SDFSNameNodeHeartBeat(heartbeat)
+	if err != nil {
+		ir.ApiOutput(nil, snettypes.CODE_502, err.Error())
+	}
+
 	ir.ApiOutput(nil, snettypes.CODE_OK, "heartbeat success")
 }
