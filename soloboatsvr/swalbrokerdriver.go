@@ -57,10 +57,8 @@ func (p *SWALBrokerDriver) FormatSWALBrokerInfo(swalBrokerInfo *soloboattypes.SW
 	}
 	swalBrokerInfo.SRPCServerAddr = peer.AddressStr()
 
-	peer, err = p.soloBoatSvr.SNetDriver.GetPeer(snettypes.StrToPeerID(swalBrokerInfo.WebPeerID))
-	if err != nil {
-		return err
-	}
+	//TODO enable WebServer
+	peer, _ = p.soloBoatSvr.SNetDriver.GetPeer(snettypes.StrToPeerID(swalBrokerInfo.WebPeerID))
 	swalBrokerInfo.WebServerAddr = peer.AddressStr()
 
 	return nil

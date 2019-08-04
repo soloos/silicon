@@ -2,13 +2,13 @@ package soloboatsvr
 
 import (
 	"soloos/common/iron"
+	"soloos/common/sdbapitypes"
 	"soloos/common/snettypes"
-	"soloos/common/swalapitypes"
 )
 
-func (p *WebServer) apiSWALBrokerHeartBeat(ir *iron.Request) {
+func (p *WebServer) apiSDBOneHeartBeat(ir *iron.Request) {
 	var (
-		heartbeat swalapitypes.BrokerHeartBeat
+		heartbeat sdbapitypes.SDBOneHeartBeat
 		err       error
 	)
 
@@ -18,7 +18,7 @@ func (p *WebServer) apiSWALBrokerHeartBeat(ir *iron.Request) {
 		return
 	}
 
-	err = p.soloBoatSvr.swalBrokerDriver.SWALBrokerHeartBeat(heartbeat)
+	err = p.soloBoatSvr.sdbOneDriver.SDBOneHeartBeat(heartbeat)
 	if err != nil {
 		ir.ApiOutput(nil, snettypes.CODE_502, err.Error())
 		return

@@ -1,6 +1,7 @@
 package soloboatsvr
 
 import (
+	"soloos/common/iron"
 	"soloos/common/log"
 	"soloos/common/snettypes"
 )
@@ -8,6 +9,8 @@ import (
 type SNetDriver struct {
 	soloBoatSvr *SoloBoatSvr
 }
+
+var _ = iron.IServer(&SNetDriver{})
 
 func (p *SNetDriver) Init(soloBoatSvr *SoloBoatSvr) error {
 	var err error
@@ -28,6 +31,10 @@ func (p *SNetDriver) Init(soloBoatSvr *SoloBoatSvr) error {
 	}
 
 	return nil
+}
+
+func (p *SNetDriver) ServerName() string {
+	return "SoloBoatSvr.SNetDriver"
 }
 
 func (p *SNetDriver) Serve() error {
@@ -51,4 +58,8 @@ func (p *SNetDriver) Serve() error {
 	}
 
 	return nil
+}
+
+func (p *SNetDriver) Close() error {
+	return p.soloBoatSvr.SoloOSEnv.SNetDriver.CloseServer()
 }

@@ -9,6 +9,8 @@ type WebServer struct {
 	server      iron.Server
 }
 
+var _ = iron.IServer(&WebServer{})
+
 func (p *WebServer) Init(soloBoatSvr *SoloBoatSvr) error {
 	var err error
 
@@ -29,6 +31,10 @@ func (p *WebServer) Init(soloBoatSvr *SoloBoatSvr) error {
 	}
 
 	return nil
+}
+
+func (p *WebServer) ServerName() string {
+	return "SoloBoatSvr.WebServer"
 }
 
 func (p *WebServer) Serve() error {

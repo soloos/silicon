@@ -1,7 +1,7 @@
 package soloboatsvr
 
 import (
-	"soloos/common/log"
+	"soloos/common/iron"
 	"soloos/common/sdbapi"
 	"soloos/common/snettypes"
 	"soloos/common/soloosbase"
@@ -10,17 +10,19 @@ import (
 
 type SoloBoatSvr struct {
 	*soloosbase.SoloOSEnv
-	options       SoloBoatSvrOptions
-	webPeer       snettypes.Peer
-	dbConn        sdbapi.Connection
-	webServer     WebServer
-	servicesCount int
+	options SoloBoatSvrOptions
+	webPeer snettypes.Peer
+	dbConn  sdbapi.Connection
 
+	webServer          WebServer
 	snetDriver         SNetDriver
 	sideCarDriver      SideCarDriver
 	sdfsNameNodeDriver SDFSNameNodeDriver
 	sdfsDataNodeDriver SDFSDataNodeDriver
 	swalBrokerDriver   SWALBrokerDriver
+	sdbOneDriver       SDBOneDriver
+
+	serverDriver iron.ServerDriver
 }
 
 func (p *SoloBoatSvr) initSNetPeer() error {
@@ -91,7 +93,20 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 		return err
 	}
 
-	p.servicesCount = 2
+	err = p.swalBrokerDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
+	err = p.sdbOneDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
+	err = p.serverDriver.Init(&p.webServer, &p.snetDriver)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -101,39 +116,9 @@ func (p *SoloBoatSvr) GetPeerID() snettypes.PeerID {
 }
 
 func (p *SoloBoatSvr) Serve() error {
-	var errChans = make(chan error, p.servicesCount)
-
-	go func(errChans chan error) {
-		errChans <- p.snetDriver.Serve()
-	}(errChans)
-
-	go func(errChans chan error) {
-		errChans <- p.webServer.Serve()
-	}(errChans)
-
-	var err error
-	for i := 0; i < p.servicesCount; i++ {
-		var tmperr = <-errChans
-		if tmperr != nil {
-			log.Error("SoloBoatSvr Serve error, err:", tmperr)
-			err = tmperr
-		}
-	}
-
-	return err
+	return p.serverDriver.Serve()
 }
 
 func (p *SoloBoatSvr) Close() error {
-	var err error
-	err = p.SoloOSEnv.SNetDriver.CloseServer()
-	if err != nil {
-		return err
-	}
-
-	err = p.webServer.Close()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return p.serverDriver.Close()
 }
