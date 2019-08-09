@@ -1,17 +1,16 @@
-package main
+package soloboatsvrd
 
 import (
 	"soloos/common/soloosbase"
 	"soloos/soloboat/soloboatsvr"
 )
 
-type Env struct {
-	SoloOSEnv soloosbase.SoloOSEnv
-
+type SoloBoatSvrd struct {
+	SoloOSEnv   soloosbase.SoloOSEnv
 	SoloBoatSvr soloboatsvr.SoloBoatSvr
 }
 
-func (p *Env) Init(options Options) error {
+func (p *SoloBoatSvrd) Init(options Options) error {
 	var err error
 
 	err = p.SoloOSEnv.InitWithSNet("")
@@ -27,10 +26,10 @@ func (p *Env) Init(options Options) error {
 	return nil
 }
 
-func (p *Env) Serve() error {
+func (p *SoloBoatSvrd) Serve() error {
 	return p.SoloBoatSvr.Serve()
 }
 
-func (p *Env) Close() error {
+func (p *SoloBoatSvrd) Close() error {
 	return nil
 }

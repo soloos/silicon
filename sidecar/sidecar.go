@@ -1,30 +1,38 @@
 package sidecar
 
 import (
+	"soloos/common/snettypes"
+	"soloos/common/soloosbase"
 	"soloos/common/util"
 )
 
 type SideCar struct {
+	*soloosbase.SoloOSEnv
 	SDFSDriver   SDFSDriver
 	SWALDriver   SWALDriver
 	BadgerDriver BadgerDriver
 
+	srpcPeer snettypes.Peer
+	webPeer  snettypes.Peer
+
 	WebServer WebServer
+
+	heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions
 }
 
-func (p *SideCar) Init(options Options) error {
+func (p *SideCar) Init(soloOSEnv *soloosbase.SoloOSEnv, options Options) error {
 	var err error
-	err = p.SDFSDriver.Init(p, options.SDFS)
+	err = p.SDFSDriver.Init(p)
 	if err != nil {
 		return err
 	}
 
-	err = p.SWALDriver.Init(p, options.SWAL)
+	err = p.SWALDriver.Init(p)
 	if err != nil {
 		return err
 	}
 
-	err = p.BadgerDriver.Init(p, options.Badger)
+	err = p.BadgerDriver.Init(p)
 	if err != nil {
 		return err
 	}

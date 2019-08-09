@@ -1,11 +1,9 @@
 package soloboatsvr
 
 import (
-	"soloos/common/sdfsapitypes"
 	"soloos/common/snettypes"
 	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
-	"time"
 )
 
 type SDFSDataNodeDriver struct {
@@ -18,25 +16,6 @@ func (p *SDFSDataNodeDriver) Init(soloBoatSvr *SoloBoatSvr) error {
 	p.soloBoatSvr = soloBoatSvr
 	err = p.soloBoatSvr.SoloOSEnv.OffheapDriver.InitLKVTableWithBytes64(&p.sdfsDataNodeTable, "SDFSDataNode",
 		int(soloboattypes.SDFSDataNodeInfoStructSize), -1, offheap.DefaultKVTableSharedCount, nil)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (p *SDFSDataNodeDriver) SDFSDataNodeHeartBeat(heartbeat sdfsapitypes.DataNodeHeartBeat) error {
-	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
-	var uObject, afterSetNewObj = p.sdfsDataNodeTable.MustGetObject(peerID)
-	var uSDFSDataNodeInfo = soloboattypes.SDFSDataNodeInfoUintptr(uObject)
-	if afterSetNewObj != nil {
-		afterSetNewObj()
-	}
-
-	uSDFSDataNodeInfo.Ptr().LastHeatBeatAt = time.Now()
-	uSDFSDataNodeInfo.Ptr().DataNodeHeartBeat = heartbeat
-	err = p.FormatSDFSDataNodeInfo(uSDFSDataNodeInfo.Ptr())
 	if err != nil {
 		return err
 	}

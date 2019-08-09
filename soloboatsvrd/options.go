@@ -1,4 +1,4 @@
-package main
+package soloboatsvrd
 
 import "soloos/soloboat/soloboatsvr"
 

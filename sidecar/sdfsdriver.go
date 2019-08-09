@@ -4,12 +4,10 @@ import "soloos/common/sdfsapitypes"
 
 type SDFSDriver struct {
 	sideCar *SideCar
-	options Options
 }
 
-func (p *SDFSDriver) Init(sideCar *SideCar, options Options) error {
+func (p *SDFSDriver) Init(sideCar *SideCar) error {
 	p.sideCar = sideCar
-	p.options = options
 	return nil
 }
 

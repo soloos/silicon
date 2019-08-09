@@ -69,7 +69,7 @@ func (p *SNetDriver) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Pee
 
 	peer.ID = peerID
 	sqlRows, err = sess.Select("address", "service_protocol").
-		From("b_netinode").
+		From("b_snetpeer").
 		Where("peer_id=?", peer.PeerIDStr()).Rows()
 	if err != nil {
 		goto QUERY_DONE

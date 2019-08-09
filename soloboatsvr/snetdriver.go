@@ -16,8 +16,7 @@ func (p *SNetDriver) Init(soloBoatSvr *SoloBoatSvr) error {
 	var err error
 	p.soloBoatSvr = soloBoatSvr
 
-	err = p.soloBoatSvr.SoloOSEnv.SNetDriver.PrepareServer(p.soloBoatSvr.options.SNetDriverListenAddr,
-		p.soloBoatSvr.options.SNetDriverServeAddr,
+	err = p.soloBoatSvr.SoloOSEnv.SNetDriver.PrepareServer("/Api/SNet", &p.soloBoatSvr.webServer.server,
 		p.FetchSNetPeerFromDB,
 		p.RegisterSNetPeerInDB)
 	if err != nil {

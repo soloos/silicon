@@ -3,19 +3,19 @@ package sidecar
 import (
 	"soloos/common/iron"
 	"soloos/common/log"
-	"soloos/common/sdfsapitypes"
 	"soloos/common/snettypes"
+	"soloos/soloboat/sidecartypes"
 	"time"
 )
 
-func (p *SideCar) SetHeartBeatServers(heartBeatServerOptionsArr []sdfsapitypes.HeartBeatServerOptions) error {
+func (p *SideCar) SetHeartBeatServers(heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions) error {
 	p.heartBeatServerOptionsArr = heartBeatServerOptionsArr
 	return nil
 }
 
-func (p *SideCar) doHeartBeat(options sdfsapitypes.HeartBeatServerOptions) {
+func (p *SideCar) doHeartBeat(options snettypes.HeartBeatServerOptions) {
 	var (
-		heartBeat sdfsapitypes.SideCarHeartBeat
+		heartBeat sidecartypes.SideCarHeartBeat
 		webret    iron.ApiOutputResult
 		peer      snettypes.Peer
 		urlPath   string

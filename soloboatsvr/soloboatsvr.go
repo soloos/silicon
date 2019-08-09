@@ -68,12 +68,12 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 		return err
 	}
 
-	err = p.snetDriver.Init(p)
+	err = p.webServer.Init(p)
 	if err != nil {
 		return err
 	}
 
-	err = p.webServer.Init(p)
+	err = p.snetDriver.Init(p)
 	if err != nil {
 		return err
 	}
@@ -103,7 +103,7 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 		return err
 	}
 
-	err = p.serverDriver.Init(&p.webServer, &p.snetDriver)
+	err = p.serverDriver.Init(&p.webServer)
 	if err != nil {
 		return err
 	}

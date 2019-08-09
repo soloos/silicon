@@ -5,10 +5,10 @@ SOLOBOAT_LDFLAGS += -X "soloos/soloboat/version.GitHash=$(shell git rev-parse HE
 all:soloboatsvrd
 
 soloboatsvrd:
-	$(SOLOBOAT_PREFIX) go build -i -ldflags '$(SOLOBOAT_LDFLAGS)' -o ./bin/soloboatsvrd ./soloboatsvrd
+	$(SOLOBOAT_PREFIX) go build -i -ldflags '$(SOLOBOAT_LDFLAGS)' -o ./bin/soloboatsvrd ./apps/soloboatsvrd
 
 sidecard:
-	$(SOLOBOAT_PREFIX) go build -i -ldflags '$(SOLOBOAT_LDFLAGS)' -o ./bin/sidecard ./sidecard
+	$(SOLOBOAT_PREFIX) go build -i -ldflags '$(SOLOBOAT_LDFLAGS)' -o ./bin/sidecard ./apps/sidecard
 
 include ./make/test
 include ./make/bench

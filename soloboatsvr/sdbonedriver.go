@@ -1,11 +1,9 @@
 package soloboatsvr
 
 import (
-	"soloos/common/sdbapitypes"
 	"soloos/common/snettypes"
 	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
-	"time"
 )
 
 type SDBOneDriver struct {
@@ -18,25 +16,6 @@ func (p *SDBOneDriver) Init(soloBoatSvr *SoloBoatSvr) error {
 	p.soloBoatSvr = soloBoatSvr
 	err = p.soloBoatSvr.SoloOSEnv.OffheapDriver.InitLKVTableWithBytes64(&p.sdbOneTable, "SDBOne",
 		int(soloboattypes.SDBOneInfoStructSize), -1, offheap.DefaultKVTableSharedCount, nil)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (p *SDBOneDriver) SDBOneHeartBeat(heartbeat sdbapitypes.SDBOneHeartBeat) error {
-	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
-	var uObject, afterSetNewObj = p.sdbOneTable.MustGetObject(peerID)
-	var uSDBOneInfo = soloboattypes.SDBOneInfoUintptr(uObject)
-	if afterSetNewObj != nil {
-		afterSetNewObj()
-	}
-
-	uSDBOneInfo.Ptr().LastHeatBeatAt = time.Now()
-	uSDBOneInfo.Ptr().SDBOneHeartBeat = heartbeat
-	err = p.FormatSDBOneInfo(uSDBOneInfo.Ptr())
 	if err != nil {
 		return err
 	}
