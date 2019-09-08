@@ -32,13 +32,14 @@ body {
 }
 
 #MainMenu ul {
+  border-right: 1px solid #EAEBF3;
   list-style:none;
   padding:0rem;
 }
 
 #MainMenu ul li>a {
   color:#A7ADC4;
-  padding:0.5rem;
+  padding:0.5rem 0.8rem;
   display:block;
   text-decoration:none;
 }
@@ -93,7 +94,6 @@ body {
       <div class="row">
         <div class="col-2">
           <div id="MainMenu">
-            <hr />
           <ul>
             <li>
               <a href="/SDB/SDBOne"<? if eq .Module.Name "SDBOne" ?> class="Active"<? end ?>> 

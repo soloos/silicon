@@ -19,7 +19,8 @@ func (p *WebServer) prepareCtrSDBOne(ir *iron.Request) bool {
 func (p *WebServer) ctrSDBOne(ir *iron.Request) {
 	var ret []soloboattypes.SDBOneInfo
 	p.soloBoatSvr.sdbOneDriver.sdbOneTable.ListObject(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
-		var obj = *soloboattypes.SDBOneInfoUintptr(uObj).Ptr()
+		var uptr = soloboattypes.SDBOneInfoUintptr(uObj)
+		var obj = *uptr.Ptr()
 		ret = append(ret, obj)
 		return true
 	})

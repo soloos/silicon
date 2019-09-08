@@ -1,3 +1,4 @@
+export GO111MODULE=on
 SOLOBOAT_LDFLAGS += -X "soloos/soloboat/version.BuildTS=$(shell date -u '+%Y-%m-%d %I:%M:%S')"
 SOLOBOAT_LDFLAGS += -X "soloos/soloboat/version.GitHash=$(shell git rev-parse HEAD)"
 # SOLOBOAT_PREFIX += GOTMPDIR=./go.build/tmp GOCACHE=./go.build/cache

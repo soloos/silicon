@@ -19,7 +19,8 @@ func (p *WebServer) prepareCtrSDFSNameNode(ir *iron.Request) bool {
 func (p *WebServer) ctrSDFSNameNode(ir *iron.Request) {
 	var ret []soloboattypes.SDFSNameNodeInfo
 	p.soloBoatSvr.sdfsNameNodeDriver.sdfsNameNodeTable.ListObject(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
-		var obj = *soloboattypes.SDFSNameNodeInfoUintptr(uObj).Ptr()
+		var uptr = soloboattypes.SDFSNameNodeInfoUintptr(uObj)
+		var obj = *uptr.Ptr()
 		ret = append(ret, obj)
 		return true
 	})

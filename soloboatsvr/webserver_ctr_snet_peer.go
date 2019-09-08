@@ -19,7 +19,8 @@ func (p *WebServer) prepareCtrSNetPeer(ir *iron.Request) bool {
 func (p *WebServer) ctrSNetPeer(ir *iron.Request) {
 	var ret []snettypes.PeerJSON
 	p.soloBoatSvr.SNetDriver.ListPeer(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
-		var peer = *snettypes.PeerUintptr(uObj).Ptr()
+		var uptr = snettypes.PeerUintptr(uObj)
+		var peer = *uptr.Ptr()
 		ret = append(ret, snettypes.PeerToPeerJSON(peer))
 		return true
 	})
