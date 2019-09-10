@@ -10,18 +10,20 @@ import (
 func (p *SDBOneDriver) SDBOneHeartBeat(heartbeat sdbapitypes.SDBOneHeartBeat) error {
 	var err error
 	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
-	var uObject, afterSetNewObj = p.sdbOneTable.MustGetObject(peerID)
-	var uSDBOneInfo = soloboattypes.SDBOneInfoUintptr(uObject)
-	if afterSetNewObj != nil {
-		afterSetNewObj()
+	var iptr, exists = p.sdbOneTable.Load(peerID)
+	var sdbOneInfo = soloboattypes.SDBOneInfo{PeerID: peerID}
+	if exists {
+		sdbOneInfo = iptr.(soloboattypes.SDBOneInfo)
 	}
 
-	uSDBOneInfo.Ptr().LastHeatBeatAt = time.Now()
-	uSDBOneInfo.Ptr().SDBOneHeartBeat = heartbeat
-	err = p.FormatSDBOneInfo(uSDBOneInfo.Ptr())
+	sdbOneInfo.LastHeatBeatAt = time.Now()
+	sdbOneInfo.SDBOneHeartBeat = heartbeat
+	err = p.FormatSDBOneInfo(&sdbOneInfo)
 	if err != nil {
 		return err
 	}
+
+	p.sdbOneTable.Store(peerID, sdbOneInfo)
 
 	return nil
 }

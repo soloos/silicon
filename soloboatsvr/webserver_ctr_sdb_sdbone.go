@@ -2,7 +2,6 @@ package soloboatsvr
 
 import (
 	"soloos/common/iron"
-	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
 )
 
@@ -18,9 +17,8 @@ func (p *WebServer) prepareCtrSDBOne(ir *iron.Request) bool {
 
 func (p *WebServer) ctrSDBOne(ir *iron.Request) {
 	var ret []soloboattypes.SDBOneInfo
-	p.soloBoatSvr.sdbOneDriver.sdbOneTable.ListObject(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
-		var uptr = soloboattypes.SDBOneInfoUintptr(uObj)
-		var obj = *uptr.Ptr()
+	p.soloBoatSvr.sdbOneDriver.sdbOneTable.Range(func(kIptr, vIptr interface{}) bool {
+		var obj = vIptr.(soloboattypes.SDBOneInfo)
 		ret = append(ret, obj)
 		return true
 	})

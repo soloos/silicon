@@ -2,24 +2,17 @@ package soloboatsvr
 
 import (
 	"soloos/common/snettypes"
-	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
+	"sync"
 )
 
 type SDFSNameNodeDriver struct {
 	soloBoatSvr       *SoloBoatSvr
-	sdfsNameNodeTable offheap.LKVTableWithBytes64
+	sdfsNameNodeTable sync.Map
 }
 
 func (p *SDFSNameNodeDriver) Init(soloBoatSvr *SoloBoatSvr) error {
-	var err error
 	p.soloBoatSvr = soloBoatSvr
-	err = p.soloBoatSvr.SoloOSEnv.OffheapDriver.InitLKVTableWithBytes64(&p.sdfsNameNodeTable, "SDFSNameNode",
-		int(soloboattypes.SDFSNameNodeInfoStructSize), -1, offheap.DefaultKVTableSharedCount, nil)
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -43,8 +36,4 @@ func (p *SDFSNameNodeDriver) FormatSDFSNameNodeInfo(sdfsNameNodeInfo *soloboatty
 	sdfsNameNodeInfo.WebServerAddr = peer.AddressStr()
 
 	return nil
-}
-
-func (p *SDFSNameNodeDriver) ListObject(listPeer offheap.LKVTableListObjectWithBytes64) {
-	p.sdfsNameNodeTable.ListObject(listPeer)
 }

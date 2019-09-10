@@ -2,7 +2,6 @@ package soloboatsvr
 
 import (
 	"soloos/common/iron"
-	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
 )
 
@@ -18,9 +17,8 @@ func (p *WebServer) prepareCtrSWALBroker(ir *iron.Request) bool {
 
 func (p *WebServer) ctrSWALBroker(ir *iron.Request) {
 	var ret []soloboattypes.SWALBrokerInfo
-	p.soloBoatSvr.swalBrokerDriver.swalBrokerTable.ListObject(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
-		var uptr = soloboattypes.SWALBrokerInfoUintptr(uObj)
-		var obj = *uptr.Ptr()
+	p.soloBoatSvr.swalBrokerDriver.swalBrokerTable.Range(func(kIptr, vIptr interface{}) bool {
+		var obj = vIptr.(soloboattypes.SWALBrokerInfo)
 		ret = append(ret, obj)
 		return true
 	})

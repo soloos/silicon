@@ -1,2 +1,2 @@
 #!/bin/bash
-nohup bin/soloboatd ./scripts/conf/soloboat.json > ./logs/soloboat.log 2>&1 &
+nohup bin/soloboatsvrd ./scripts/conf/soloboat.json > ./logs/soloboat.log 2>&1 &

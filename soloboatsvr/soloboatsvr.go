@@ -58,6 +58,11 @@ func (p *SoloBoatSvr) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloBoatSvrO
 	p.SoloOSEnv = soloOSEnv
 	p.options = options
 
+	err = p.preparePProf(p.options.PProfListenAddr)
+	if err != nil {
+		return err
+	}
+
 	err = p.initSNetPeer()
 	if err != nil {
 		return err

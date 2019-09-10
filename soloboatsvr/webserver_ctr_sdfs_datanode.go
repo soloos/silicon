@@ -2,7 +2,6 @@ package soloboatsvr
 
 import (
 	"soloos/common/iron"
-	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
 )
 
@@ -18,9 +17,8 @@ func (p *WebServer) prepareCtrSDFSDataNode(ir *iron.Request) bool {
 
 func (p *WebServer) ctrSDFSDataNode(ir *iron.Request) {
 	var ret []soloboattypes.SDFSDataNodeInfo
-	p.soloBoatSvr.sdfsDataNodeDriver.sdfsDataNodeTable.ListObject(func(uObj offheap.LKVTableObjectUPtrWithBytes64) bool {
-		var uptr = soloboattypes.SDFSDataNodeInfoUintptr(uObj)
-		var obj = *uptr.Ptr()
+	p.soloBoatSvr.sdfsDataNodeDriver.sdfsDataNodeTable.Range(func(kIptr, vIptr interface{}) bool {
+		var obj = vIptr.(soloboattypes.SDFSDataNodeInfo)
 		ret = append(ret, obj)
 		return true
 	})

@@ -2,45 +2,17 @@ package soloboatsvr
 
 import (
 	"soloos/common/snettypes"
-	"soloos/common/swalapitypes"
-	"soloos/sdbone/offheap"
 	"soloos/soloboat/soloboattypes"
-	"time"
+	"sync"
 )
 
 type SWALBrokerDriver struct {
 	soloBoatSvr     *SoloBoatSvr
-	swalBrokerTable offheap.LKVTableWithBytes64
+	swalBrokerTable sync.Map
 }
 
 func (p *SWALBrokerDriver) Init(soloBoatSvr *SoloBoatSvr) error {
-	var err error
 	p.soloBoatSvr = soloBoatSvr
-	err = p.soloBoatSvr.SoloOSEnv.OffheapDriver.InitLKVTableWithBytes64(&p.swalBrokerTable, "SWALBroker",
-		int(soloboattypes.SWALBrokerInfoStructSize), -1, offheap.DefaultKVTableSharedCount, nil)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (p *SWALBrokerDriver) SWALBrokerHeartBeat(heartbeat swalapitypes.BrokerHeartBeat) error {
-	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
-	var uObject, afterSetNewObj = p.swalBrokerTable.MustGetObject(peerID)
-	var uSWALBrokerInfo = soloboattypes.SWALBrokerInfoUintptr(uObject)
-	if afterSetNewObj != nil {
-		afterSetNewObj()
-	}
-
-	uSWALBrokerInfo.Ptr().LastHeatBeatAt = time.Now()
-	uSWALBrokerInfo.Ptr().BrokerHeartBeat = heartbeat
-	err = p.FormatSWALBrokerInfo(uSWALBrokerInfo.Ptr())
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -62,8 +34,4 @@ func (p *SWALBrokerDriver) FormatSWALBrokerInfo(swalBrokerInfo *soloboattypes.SW
 	swalBrokerInfo.WebServerAddr = peer.AddressStr()
 
 	return nil
-}
-
-func (p *SWALBrokerDriver) ListObject(listPeer offheap.LKVTableListObjectWithBytes64) {
-	p.swalBrokerTable.ListObject(listPeer)
 }

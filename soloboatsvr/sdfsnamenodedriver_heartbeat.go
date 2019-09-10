@@ -10,18 +10,20 @@ import (
 func (p *SDFSNameNodeDriver) SDFSNameNodeHeartBeat(heartbeat sdfsapitypes.NameNodeHeartBeat) error {
 	var err error
 	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
-	var uObject, afterSetNewObj = p.sdfsNameNodeTable.MustGetObject(peerID)
-	var uSDFSNameNodeInfo = soloboattypes.SDFSNameNodeInfoUintptr(uObject)
-	if afterSetNewObj != nil {
-		afterSetNewObj()
+	var iptr, exists = p.sdfsNameNodeTable.Load(peerID)
+	var sdfsNameNodeInfo = soloboattypes.SDFSNameNodeInfo{PeerID: peerID}
+	if exists {
+		sdfsNameNodeInfo = iptr.(soloboattypes.SDFSNameNodeInfo)
 	}
 
-	uSDFSNameNodeInfo.Ptr().LastHeatBeatAt = time.Now()
-	uSDFSNameNodeInfo.Ptr().NameNodeHeartBeat = heartbeat
-	err = p.FormatSDFSNameNodeInfo(uSDFSNameNodeInfo.Ptr())
+	sdfsNameNodeInfo.LastHeatBeatAt = time.Now()
+	sdfsNameNodeInfo.NameNodeHeartBeat = heartbeat
+	err = p.FormatSDFSNameNodeInfo(&sdfsNameNodeInfo)
 	if err != nil {
 		return err
 	}
+
+	p.sdfsNameNodeTable.Store(peerID, sdfsNameNodeInfo)
 
 	return nil
 }
