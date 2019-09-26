@@ -2,50 +2,50 @@ package soloboattypes
 
 import (
 	"soloos/common/snettypes"
-	"soloos/sdbone/offheap"
+	"soloos/solodb/offheap"
 	"soloos/soloboat/sidecartypes"
 	"time"
 	"unsafe"
 )
 
 const (
-	SideCarInfoStructSize = unsafe.Sizeof(SideCarInfo{})
+	SidecarInfoStructSize = unsafe.Sizeof(SidecarInfo{})
 )
 
-type SideCarInfoJSON struct {
+type SidecarInfoJSON struct {
 	PeerID         string
 	LastHeatBeatAt int64
 }
 
-func DecodeSideCarInfoJSON(sideCarInfoJSON SideCarInfoJSON) SideCarInfo {
-	var ret SideCarInfo
+func DecodeSidecarInfoJSON(sideCarInfoJSON SidecarInfoJSON) SidecarInfo {
+	var ret SidecarInfo
 	copy(ret.ID[:], []byte(sideCarInfoJSON.PeerID))
 	ret.LastHeatBeatAt = time.Unix(sideCarInfoJSON.LastHeatBeatAt, 0)
 	return ret
 }
 
-func EncodeSideCarInfoJSON(sideCarInfo SideCarInfo) SideCarInfoJSON {
-	var ret SideCarInfoJSON
+func EncodeSidecarInfoJSON(sideCarInfo SidecarInfo) SidecarInfoJSON {
+	var ret SidecarInfoJSON
 	ret.PeerID = string(sideCarInfo.ID[:])
 	ret.LastHeatBeatAt = sideCarInfo.LastHeatBeatAt.Unix()
 	return ret
 }
 
-type SideCarInfoUintptr uintptr
+type SidecarInfoUintptr uintptr
 
-func (u SideCarInfoUintptr) Ptr() *SideCarInfo {
-	return (*SideCarInfo)(unsafe.Pointer(u))
+func (u SidecarInfoUintptr) Ptr() *SidecarInfo {
+	return (*SidecarInfo)(unsafe.Pointer(u))
 }
 
-type SideCarInfo struct {
+type SidecarInfo struct {
 	offheap.LKVTableObjectWithBytes64 `db:"-"`
 	LastHeatBeatAt                    time.Time
 	LastHeatBeatAtStr                 string
 	SRPCServerAddr                    string
 	WebServerAddr                     string
-	sidecartypes.SideCarHeartBeat
+	sidecartypes.SidecarHeartBeat
 }
 
-func (p *SideCarInfo) PeerID() snettypes.PeerID { return snettypes.PeerID(p.ID) }
+func (p *SidecarInfo) PeerID() snettypes.PeerID { return snettypes.PeerID(p.ID) }
 
-func (p *SideCarInfo) PeerIDStr() string { return snettypes.PeerID(p.ID).Str() }
+func (p *SidecarInfo) PeerIDStr() string { return snettypes.PeerID(p.ID).Str() }

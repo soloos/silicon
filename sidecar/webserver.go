@@ -3,11 +3,11 @@ package sidecar
 import "soloos/common/iron"
 
 type WebServer struct {
-	sideCar    *SideCar
+	sideCar    *Sidecar
 	httpServer iron.Server
 }
 
-func (p *WebServer) Init(sideCar *SideCar, options iron.Options) error {
+func (p *WebServer) Init(sideCar *Sidecar, options iron.Options) error {
 	var err error
 	p.sideCar = sideCar
 

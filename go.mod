@@ -4,13 +4,15 @@ go 1.12
 
 replace (
 	soloos/common v0.0.0 => /soloos/common
-	soloos/sdbone v0.0.0 => /soloos/sdbone
-	soloos/sdfs v0.0.0 => /soloos/sdfs
 	soloos/soloboat v0.0.0 => /soloos/soloboat
-	soloos/swal v0.0.0 => /soloos/swal
+	soloos/solodb v0.0.0 => /soloos/solodb
+	soloos/solofs v0.0.0 => /soloos/solofs
+	soloos/solomq v0.0.0 => /soloos/solomq
 )
 
 require (
+	github.com/mattn/go-colorable v0.1.2 // indirect
+	github.com/mattn/go-isatty v0.0.9 // indirect
 	soloos/common v0.0.0
-	soloos/sdbone v0.0.0
+	soloos/solodb v0.0.0
 )

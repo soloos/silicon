@@ -5,9 +5,9 @@ import (
 )
 
 const (
-	DefaultSoloBoatRPCNetwork = "tcp"
+	DefaultSoloboatRPCNetwork = "tcp"
 )
 
 var (
-	DefaultSoloBoatRPCProtocol = snettypes.ProtocolSoloBoat
+	DefaultSoloboatRPCProtocol = snettypes.ProtocolSoloboat
 )

@@ -1,10 +1,10 @@
 package sidecar
 
 type BadgerDriver struct {
-	sideCar *SideCar
+	sideCar *Sidecar
 }
 
-func (p *BadgerDriver) Init(sideCar *SideCar) error {
+func (p *BadgerDriver) Init(sideCar *Sidecar) error {
 	p.sideCar = sideCar
 	return nil
 }

@@ -6,10 +6,10 @@ import (
 	"soloos/common/util"
 )
 
-type SideCar struct {
+type Sidecar struct {
 	*soloosbase.SoloOSEnv
-	SDFSDriver   SDFSDriver
-	SWALDriver   SWALDriver
+	SolofsDriver   SolofsDriver
+	SolomqDriver   SolomqDriver
 	BadgerDriver BadgerDriver
 
 	srpcPeer snettypes.Peer
@@ -20,14 +20,14 @@ type SideCar struct {
 	heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions
 }
 
-func (p *SideCar) Init(soloOSEnv *soloosbase.SoloOSEnv, options Options) error {
+func (p *Sidecar) Init(soloOSEnv *soloosbase.SoloOSEnv, options Options) error {
 	var err error
-	err = p.SDFSDriver.Init(p)
+	err = p.SolofsDriver.Init(p)
 	if err != nil {
 		return err
 	}
 
-	err = p.SWALDriver.Init(p)
+	err = p.SolomqDriver.Init(p)
 	if err != nil {
 		return err
 	}
@@ -45,13 +45,13 @@ func (p *SideCar) Init(soloOSEnv *soloosbase.SoloOSEnv, options Options) error {
 	return nil
 }
 
-func (p *SideCar) Serve() error {
+func (p *Sidecar) Serve() error {
 	go func() {
 		util.AssertErrIsNil(p.WebServer.Serve())
 	}()
 	return nil
 }
 
-func (p *SideCar) Close() error {
+func (p *Sidecar) Close() error {
 	return p.WebServer.Close()
 }

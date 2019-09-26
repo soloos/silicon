@@ -2,11 +2,11 @@ package sidecar
 
 import "soloos/common/iron"
 
-type SDFSOptions struct {
+type SolofsOptions struct {
 	LogFilePath string
 }
 
-type SWALOptions struct {
+type SolomqOptions struct {
 	LogFilePath string
 }
 
@@ -15,8 +15,8 @@ type BadgerOptions struct {
 }
 
 type Options struct {
-	SDFSInsList   []SDFSOptions
-	SWALInsList   []SDFSOptions
-	BadgerInsList []SDFSOptions
+	SolofsInsList   []SolofsOptions
+	SolomqInsList   []SolofsOptions
+	BadgerInsList []SolofsOptions
 	WebServer     iron.Options
 }

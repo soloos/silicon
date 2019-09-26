@@ -1,10 +1,10 @@
 package soloboattypes
 
-type SDFSNameNodeInstance struct {
+type SolonnInstance struct {
 }
 
-type SDFSDataNodeInstance struct {
+type SolodnInstance struct {
 }
 
-type SWALAgentInstance struct {
+type SolomqAgentInstance struct {
 }

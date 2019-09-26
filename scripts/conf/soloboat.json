@@ -2,11 +2,11 @@
     "DBDriver": "mysql",
     "Dsn": "root:hello@/soloos_test",
     "PProfListenAddr": "0.0.0.0:20703",
-    "WebPeerID": "SOLOBOAT_1_00000000000000000000000000000000000000000000000000000",
+    "WebPeerID": "Soloboat_1_00000000000000000000000000000000000000000000000000000",
     "WebServerOptions": {
         "ServeStr": "http://192.168.56.100:20701",
         "ListenStr": "0.0.0.0:20701",
-        "SiteViewDir": "/opt/soloos/soloboat/resource/html/soloboatsvr/",
+        "SiteViewDir": "/opt/soloos/soloboat/resource/html/soloboat/",
         "SiteStaticBasePath": "/opt/soloos/soloboat/resource/static/"
     }
 }

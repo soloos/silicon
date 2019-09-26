@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var sideCar sidecar.SideCar
+	var sideCar sidecar.Sidecar
 	var soloOSEnv soloosbase.SoloOSEnv
 	util.AssertErrIsNil(soloOSEnv.InitWithSNet(""))
 	util.AssertErrIsNil(sideCar.Init(&soloOSEnv, sidecar.Options{}))

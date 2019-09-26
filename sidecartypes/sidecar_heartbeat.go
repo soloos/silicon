@@ -1,6 +1,6 @@
 package sidecartypes
 
-type SideCarHeartBeat struct {
+type SidecarHeartBeat struct {
 	WebPeerID  string
 	SRPCPeerID string
 }

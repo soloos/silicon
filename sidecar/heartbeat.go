@@ -8,14 +8,14 @@ import (
 	"time"
 )
 
-func (p *SideCar) SetHeartBeatServers(heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions) error {
+func (p *Sidecar) SetHeartBeatServers(heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions) error {
 	p.heartBeatServerOptionsArr = heartBeatServerOptionsArr
 	return nil
 }
 
-func (p *SideCar) doHeartBeat(options snettypes.HeartBeatServerOptions) {
+func (p *Sidecar) doHeartBeat(options snettypes.HeartBeatServerOptions) {
 	var (
-		heartBeat sidecartypes.SideCarHeartBeat
+		heartBeat sidecartypes.SidecarHeartBeat
 		webret    iron.ApiOutputResult
 		peer      snettypes.Peer
 		urlPath   string
@@ -27,25 +27,25 @@ func (p *SideCar) doHeartBeat(options snettypes.HeartBeatServerOptions) {
 
 	for {
 		peer, err = p.SoloOSEnv.SNetDriver.GetPeer(options.PeerID)
-		urlPath = peer.AddressStr() + "/Api/SoloBoat/SideCar/HeartBeat"
+		urlPath = peer.AddressStr() + "/Api/Soloboat/Sidecar/HeartBeat"
 		if err != nil {
-			log.Error("SideCar HeartBeat post json error, urlPath:", urlPath, ", err:", err)
+			log.Error("Sidecar HeartBeat post json error, urlPath:", urlPath, ", err:", err)
 			goto HEARTBEAT_DONE
 		}
 
 		err = iron.PostJSON(urlPath, heartBeat, &webret)
 		if err != nil {
-			log.Error("SideCar HeartBeat post json(decode) error, urlPath:", urlPath, ", err:", err)
+			log.Error("Sidecar HeartBeat post json(decode) error, urlPath:", urlPath, ", err:", err)
 			goto HEARTBEAT_DONE
 		}
-		log.Info("SideCar heartbeat message:", webret)
+		log.Info("Sidecar heartbeat message:", webret)
 
 	HEARTBEAT_DONE:
 		time.Sleep(time.Duration(options.DurationMS) * time.Millisecond)
 	}
 }
 
-func (p *SideCar) StartHeartBeat() error {
+func (p *Sidecar) StartHeartBeat() error {
 	for _, options := range p.heartBeatServerOptionsArr {
 		go p.doHeartBeat(options)
 	}
