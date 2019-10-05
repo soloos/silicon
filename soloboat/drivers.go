@@ -5,6 +5,7 @@ import (
 	"soloos/soloboat/soloboat/sidecar"
 	"soloos/soloboat/soloboat/solodb"
 	"soloos/soloboat/soloboat/solodn"
+	"soloos/soloboat/soloboat/solofs"
 	"soloos/soloboat/soloboat/solomq"
 	"soloos/soloboat/soloboat/solonn"
 )
@@ -12,6 +13,7 @@ import (
 type SoloboatDrivers struct {
 	soloboat           *Soloboat
 	sideCarDriver      sidecar.SidecarDriver
+	solofsDriver       solofs.SolofsDriver
 	solonnDriver       solonn.SolonnDriver
 	solodnDriver       solodn.SolodnDriver
 	solomqSolomqDriver solomq.SolomqDriver
@@ -34,12 +36,6 @@ func (p *SoloboatDrivers) Init(soloboatIns *Soloboat) error {
 	if err != nil {
 		return err
 	}
-
-	err = p.snetDriver.Init(p.soloboat)
-	if err != nil {
-		return err
-	}
-	p.serverDriver.AddServer(&p.snetDriver)
 
 	err = p.sideCarDriver.Init(p.soloboat)
 	if err != nil {

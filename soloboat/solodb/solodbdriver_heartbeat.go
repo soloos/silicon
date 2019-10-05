@@ -9,7 +9,7 @@ import (
 
 func (p *SolodbDriver) SolodbHeartBeat(heartbeat solodbapitypes.SolodbHeartBeat) error {
 	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
+	var peerID = snettypes.StrToPeerID(heartbeat.SrpcPeerID)
 	var iptr, exists = p.solodbTable.Load(peerID)
 	var solodbInfo = soloboattypes.SolodbInfo{PeerID: peerID}
 	if exists {

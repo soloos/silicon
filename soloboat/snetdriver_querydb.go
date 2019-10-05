@@ -20,7 +20,7 @@ func (p *SNetDriver) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
 		err         error
 	)
 
-	err = p.soloboatIns.dbConn.InitSession(&sess)
+	err = p.dbConn.InitSession(&sess)
 	if err != nil {
 		goto QUERY_DONE
 	}
@@ -62,7 +62,7 @@ func (p *SNetDriver) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Pee
 		err         error
 	)
 
-	err = p.soloboatIns.dbConn.InitSession(&sess)
+	err = p.dbConn.InitSession(&sess)
 	if err != nil {
 		goto QUERY_DONE
 	}
@@ -101,7 +101,7 @@ func (p *SNetDriver) RegisterSNetPeerInDB(peer snettypes.Peer) error {
 		err  error
 	)
 
-	err = p.soloboatIns.dbConn.InitSession(&sess)
+	err = p.dbConn.InitSession(&sess)
 	if err != nil {
 		return err
 	}

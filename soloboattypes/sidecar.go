@@ -41,7 +41,7 @@ type SidecarInfo struct {
 	offheap.LKVTableObjectWithBytes64 `db:"-"`
 	LastHeatBeatAt                    time.Time
 	LastHeatBeatAtStr                 string
-	SRPCServerAddr                    string
+	SrpcServerAddr                    string
 	WebServerAddr                     string
 	sidecartypes.SidecarHeartBeat
 }

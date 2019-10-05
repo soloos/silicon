@@ -11,7 +11,7 @@ func (p *SidecarDriver) StoreSidecarInDB(sideCarInfo soloboattypes.SidecarInfo) 
 		err  error
 	)
 
-	err = p.soloboatIns.dbConn.InitSession(&sess)
+	err = p.dbConn.InitSession(&sess)
 	if err != nil {
 		return err
 	}

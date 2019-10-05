@@ -9,11 +9,13 @@ import (
 )
 
 type Soloboat struct {
-	*soloosbase.SoloOSEnv
+	*soloosbase.SoloosEnv
 	options SoloboatOptions
 	webPeer snettypes.Peer
-	dbConn  solodbapi.Connection
 
+	dbConn solodbapi.Connection
+
+	iron.Proxy
 	webServer  WebServer
 	snetDriver SNetDriver
 	SoloboatDrivers
@@ -47,10 +49,10 @@ func (p *Soloboat) initSidecarDriver() error {
 	return nil
 }
 
-func (p *Soloboat) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloboatOptions) error {
+func (p *Soloboat) Init(soloosEnv *soloosbase.SoloosEnv, options SoloboatOptions) error {
 	var err error
 
-	p.SoloOSEnv = soloOSEnv
+	p.SoloosEnv = soloosEnv
 	p.options = options
 
 	err = p.preparePProf(p.options.PProfListenAddr)
@@ -73,12 +75,23 @@ func (p *Soloboat) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloboatOptions
 		return err
 	}
 
+	err = p.snetDriver.Init(p)
+	if err != nil {
+		return err
+	}
+
+	err = p.Proxy.Init()
+	if err != nil {
+		return err
+	}
+	p.Proxy.InitAttachModeWebServer("/Api/Soloboat", &p.webServer.server)
+
 	err = p.SoloboatDrivers.Init(p)
 	if err != nil {
 		return err
 	}
 
-	err = p.serverDriver.Init(&p.webServer, &p.SoloboatDrivers)
+	err = p.serverDriver.Init(&p.webServer, &p.snetDriver, &p.SoloboatDrivers)
 	if err != nil {
 		return err
 	}
@@ -86,8 +99,8 @@ func (p *Soloboat) Init(soloOSEnv *soloosbase.SoloOSEnv, options SoloboatOptions
 	return nil
 }
 
-func (p *Soloboat) GetPeerID() snettypes.PeerID {
-	return p.webPeer.ID
+func (p *Soloboat) GetWebPeer() snettypes.Peer {
+	return p.webPeer
 }
 
 func (p *Soloboat) Serve() error {

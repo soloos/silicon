@@ -3,6 +3,8 @@ package sidecar
 import (
 	"soloos/common/iron"
 	"soloos/common/snettypes"
+	"soloos/common/solodbapi"
+	"soloos/common/soloosbase"
 	"soloos/soloboat/sidecartypes"
 	"soloos/soloboat/soloboattypes"
 	"soloos/solodb/offheap"
@@ -10,7 +12,9 @@ import (
 )
 
 type SidecarDriver struct {
-	soloboatIns  *soloboattypes.Soloboat
+	soloboatIns soloboattypes.Soloboat
+	*soloosbase.SoloosEnv
+	dbConn       *solodbapi.Connection
 	SidecarTable offheap.LKVTableWithBytes64
 }
 
@@ -20,10 +24,12 @@ func (p *SidecarDriver) ServerName() string {
 	return "Soloos.Soloboat.SidecarDriver"
 }
 
-func (p *SidecarDriver) Init(soloboatIns *soloboattypes.Soloboat) error {
+func (p *SidecarDriver) Init(soloboatIns soloboattypes.Soloboat) error {
 	var err error
 	p.soloboatIns = soloboatIns
-	err = p.soloboatIns.SoloOSEnv.OffheapDriver.InitLKVTableWithBytes64(&p.SidecarTable, "Sidecar",
+	p.SoloosEnv = p.soloboatIns.GetSoloosEnv()
+	p.dbConn = p.soloboatIns.GetDBConn()
+	err = p.SoloosEnv.OffheapDriver.InitLKVTableWithBytes64(&p.SidecarTable, "Sidecar",
 		int(soloboattypes.SidecarInfoStructSize), -1, offheap.DefaultKVTableSharedCount, nil)
 	if err != nil {
 		return err
@@ -65,7 +71,7 @@ func (p *SidecarDriver) FormatSidecarInfo(SidecarInfo *soloboattypes.SidecarInfo
 		err  error
 	)
 
-	peer, err = p.soloboatIns.SNetDriver.GetPeer(snettypes.StrToPeerID(SidecarInfo.WebPeerID))
+	peer, err = p.SNetDriver.GetPeer(snettypes.StrToPeerID(SidecarInfo.WebPeerID))
 	if err != nil {
 		return err
 	}

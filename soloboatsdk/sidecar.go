@@ -5,10 +5,10 @@ import (
 	"soloos/soloboat/soloboattypes"
 )
 
-type SidecarInfoReqJSON struct {
+type SidecarInfoReq struct {
 	soloboattypes.SidecarInfoJSON
 }
 
-type SidecarInfoRespJSON struct {
-	snettypes.APIRespCommonJSON
+type SidecarInfoResp struct {
+	snettypes.RespDataCommon
 }

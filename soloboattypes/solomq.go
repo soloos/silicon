@@ -40,7 +40,7 @@ type SolomqInfo struct {
 	snettypes.PeerID
 	LastHeatBeatAt    time.Time
 	LastHeatBeatAtStr string
-	SRPCServerAddr    string
+	SrpcServerAddr    string
 	WebServerAddr     string
 	solomqapitypes.SolomqHeartBeat
 }

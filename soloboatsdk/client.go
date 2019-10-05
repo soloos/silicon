@@ -6,16 +6,16 @@ import (
 )
 
 type Client struct {
-	soloOSEnv       *soloosbase.SoloOSEnv
+	soloosEnv       *soloosbase.SoloosEnv
 	soloboatWebPeer snettypes.Peer
 }
 
-func (p *Client) Init(soloOSEnv *soloosbase.SoloOSEnv,
+func (p *Client) Init(soloosEnv *soloosbase.SoloosEnv,
 	soloboatWebPeerID snettypes.PeerID) error {
 	var err error
 
-	p.soloOSEnv = soloOSEnv
-	p.soloboatWebPeer, err = p.soloOSEnv.SNetDriver.GetPeer(soloboatWebPeerID)
+	p.soloosEnv = soloosEnv
+	p.soloboatWebPeer, err = p.soloosEnv.SNetDriver.GetPeer(soloboatWebPeerID)
 	if err != nil {
 		return err
 	}

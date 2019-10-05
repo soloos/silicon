@@ -11,8 +11,6 @@ replace (
 )
 
 require (
-	github.com/mattn/go-colorable v0.1.2 // indirect
-	github.com/mattn/go-isatty v0.0.9 // indirect
 	soloos/common v0.0.0
 	soloos/solodb v0.0.0
 )

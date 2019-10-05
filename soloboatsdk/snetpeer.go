@@ -2,10 +2,10 @@ package soloboatsdk
 
 import "soloos/common/snettypes"
 
-type HeartBeatReqJSON struct {
+type HeartBeatReq struct {
 	PeerID string
 }
 
-type HeartBeatRespJSON struct {
-	snettypes.APIRespCommonJSON
+type HeartBeatResp struct {
+	snettypes.RespDataCommon
 }

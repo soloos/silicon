@@ -3,12 +3,14 @@ package solodb
 import (
 	"soloos/common/iron"
 	"soloos/common/snettypes"
+	"soloos/common/soloosbase"
 	"soloos/soloboat/soloboattypes"
 	"sync"
 )
 
 type SolodbDriver struct {
-	soloboatIns *soloboattypes.Soloboat
+	soloboatIns soloboattypes.Soloboat
+	*soloosbase.SoloosEnv
 	solodbTable sync.Map
 }
 
@@ -18,8 +20,9 @@ func (p *SolodbDriver) ServerName() string {
 	return "Soloos.Soloboat.SolodbDriver"
 }
 
-func (p *SolodbDriver) Init(soloboatIns *soloboattypes.Soloboat) error {
+func (p *SolodbDriver) Init(soloboatIns soloboattypes.Soloboat) error {
 	p.soloboatIns = soloboatIns
+	p.SoloosEnv = p.soloboatIns.GetSoloosEnv()
 	return nil
 }
 
@@ -38,14 +41,14 @@ func (p *SolodbDriver) FormatSolodbInfo(solodbInfo *soloboattypes.SolodbInfo) er
 	)
 
 	solodbInfo.LastHeatBeatAtStr = solodbInfo.LastHeatBeatAt.Format("2006-01-02 15:04:05")
-	peer, err = p.soloboatIns.SNetDriver.GetPeer(snettypes.StrToPeerID(solodbInfo.SRPCPeerID))
+	peer, err = p.SNetDriver.GetPeer(snettypes.StrToPeerID(solodbInfo.SrpcPeerID))
 	if err != nil {
 		return err
 	}
-	solodbInfo.SRPCServerAddr = peer.AddressStr()
+	solodbInfo.SrpcServerAddr = peer.AddressStr()
 
 	//TODO enable WebServer
-	peer, _ = p.soloboatIns.SNetDriver.GetPeer(snettypes.StrToPeerID(solodbInfo.WebPeerID))
+	peer, _ = p.SNetDriver.GetPeer(snettypes.StrToPeerID(solodbInfo.WebPeerID))
 	solodbInfo.WebServerAddr = peer.AddressStr()
 
 	return nil

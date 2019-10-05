@@ -7,9 +7,9 @@ import (
 )
 
 type Sidecar struct {
-	*soloosbase.SoloOSEnv
-	SolofsDriver   SolofsDriver
-	SolomqDriver   SolomqDriver
+	*soloosbase.SoloosEnv
+	SolofsDriver SolofsDriver
+	SolomqDriver SolomqDriver
 	BadgerDriver BadgerDriver
 
 	srpcPeer snettypes.Peer
@@ -20,7 +20,7 @@ type Sidecar struct {
 	heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions
 }
 
-func (p *Sidecar) Init(soloOSEnv *soloosbase.SoloOSEnv, options Options) error {
+func (p *Sidecar) Init(soloosEnv *soloosbase.SoloosEnv, options Options) error {
 	var err error
 	err = p.SolofsDriver.Init(p)
 	if err != nil {

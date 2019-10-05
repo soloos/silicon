@@ -16,17 +16,17 @@ func (p *Sidecar) SetHeartBeatServers(heartBeatServerOptionsArr []snettypes.Hear
 func (p *Sidecar) doHeartBeat(options snettypes.HeartBeatServerOptions) {
 	var (
 		heartBeat sidecartypes.SidecarHeartBeat
-		webret    iron.ApiOutputResult
+		webret    iron.ResponseJSON
 		peer      snettypes.Peer
 		urlPath   string
 		err       error
 	)
 
-	heartBeat.SRPCPeerID = p.srpcPeer.PeerID().Str()
+	heartBeat.SrpcPeerID = p.srpcPeer.PeerID().Str()
 	heartBeat.WebPeerID = p.webPeer.PeerID().Str()
 
 	for {
-		peer, err = p.SoloOSEnv.SNetDriver.GetPeer(options.PeerID)
+		peer, err = p.SoloosEnv.SNetDriver.GetPeer(options.PeerID)
 		urlPath = peer.AddressStr() + "/Api/Soloboat/Sidecar/HeartBeat"
 		if err != nil {
 			log.Error("Sidecar HeartBeat post json error, urlPath:", urlPath, ", err:", err)

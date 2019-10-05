@@ -6,19 +6,19 @@ import (
 )
 
 type SoloboatDaemon struct {
-	SoloOSEnv   soloosbase.SoloOSEnv
+	SoloosEnv   soloosbase.SoloosEnv
 	Soloboat soloboat.Soloboat
 }
 
 func (p *SoloboatDaemon) Init(options Options) error {
 	var err error
 
-	err = p.SoloOSEnv.InitWithSNet("")
+	err = p.SoloosEnv.InitWithSNet("")
 	if err != nil {
 		return err
 	}
 
-	err = p.Soloboat.Init(&p.SoloOSEnv, options.SoloboatOptions)
+	err = p.Soloboat.Init(&p.SoloosEnv, options.SoloboatOptions)
 	if err != nil {
 		return err
 	}

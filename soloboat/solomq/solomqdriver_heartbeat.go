@@ -9,7 +9,7 @@ import (
 
 func (p *SolomqDriver) SolomqHeartBeat(heartbeat solomqapitypes.SolomqHeartBeat) error {
 	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SRPCPeerID)
+	var peerID = snettypes.StrToPeerID(heartbeat.SrpcPeerID)
 	var iptr, exists = p.solomqSolomqTable.Load(peerID)
 	var solomqSolomqInfo = soloboattypes.SolomqInfo{PeerID: peerID}
 	if exists {
