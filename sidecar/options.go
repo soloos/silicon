@@ -15,8 +15,8 @@ type BadgerOptions struct {
 }
 
 type Options struct {
-	SolofsInsList   []SolofsOptions
-	SolomqInsList   []SolofsOptions
+	SolofsInsList []SolofsOptions
+	SolomqInsList []SolofsOptions
 	BadgerInsList []SolofsOptions
 	WebServer     iron.Options
 }

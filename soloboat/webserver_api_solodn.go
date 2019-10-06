@@ -2,8 +2,8 @@ package soloboat
 
 import (
 	"soloos/common/iron"
-	"soloos/common/solofsapitypes"
 	"soloos/common/snettypes"
+	"soloos/common/solofsapitypes"
 )
 
 func (p *WebServer) apiSolodnHeartBeat(ir *iron.Request) {

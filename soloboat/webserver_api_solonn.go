@@ -3,12 +3,12 @@ package soloboat
 import (
 	"soloos/common/iron"
 	"soloos/common/snettypes"
-	"soloos/common/solodbapitypes"
+	"soloos/common/solofsapitypes"
 )
 
-func (p *WebServer) apiSolodbHeartBeat(ir *iron.Request) {
+func (p *WebServer) apiSolonnHeartBeat(ir *iron.Request) {
 	var (
-		heartbeat solodbapitypes.SolodbHeartBeat
+		heartbeat solofsapitypes.SolonnHeartBeat
 		err       error
 	)
 
@@ -18,10 +18,9 @@ func (p *WebServer) apiSolodbHeartBeat(ir *iron.Request) {
 		return
 	}
 
-	err = p.soloboatIns.solodbDriver.SolodbHeartBeat(heartbeat)
+	err = p.soloboatIns.solonnDriver.SolonnHeartBeat(heartbeat)
 	if err != nil {
 		ir.ApiOutput(nil, snettypes.CODE_502, err.Error())
-		return
 	}
 
 	ir.ApiOutput(nil, snettypes.CODE_OK, "heartbeat success")

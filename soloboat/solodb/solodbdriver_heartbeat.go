@@ -1,8 +1,8 @@
 package solodb
 
 import (
-	"soloos/common/solodbapitypes"
 	"soloos/common/snettypes"
+	"soloos/common/solodbapitypes"
 	"soloos/soloboat/soloboattypes"
 	"time"
 )

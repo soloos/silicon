@@ -1,8 +1,8 @@
 package solodn
 
 import (
-	"soloos/common/solofsapitypes"
 	"soloos/common/snettypes"
+	"soloos/common/solofsapitypes"
 	"soloos/soloboat/soloboattypes"
 	"time"
 )

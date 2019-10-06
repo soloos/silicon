@@ -2,8 +2,8 @@ package soloboattypes
 
 import (
 	"soloos/common/snettypes"
-	"soloos/solodb/offheap"
 	"soloos/soloboat/sidecartypes"
+	"soloos/solodb/offheap"
 	"time"
 	"unsafe"
 )

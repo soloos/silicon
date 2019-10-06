@@ -1,8 +1,8 @@
 package soloboattypes
 
 import (
-	"soloos/common/solodbapitypes"
 	"soloos/common/snettypes"
+	"soloos/common/solodbapitypes"
 	"time"
 	"unsafe"
 )

@@ -6,8 +6,8 @@ import (
 )
 
 type SoloboatDaemon struct {
-	SoloosEnv   soloosbase.SoloosEnv
-	Soloboat soloboat.Soloboat
+	SoloosEnv soloosbase.SoloosEnv
+	Soloboat  soloboat.Soloboat
 }
 
 func (p *SoloboatDaemon) Init(options Options) error {
