@@ -2,7 +2,7 @@ package solodn
 
 import (
 	"soloos/common/iron"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/soloosbase"
 	"soloos/soloboat/soloboattypes"
 	"sync"
@@ -36,18 +36,18 @@ func (p *SolodnDriver) Close() error {
 
 func (p *SolodnDriver) FormatSolodnInfo(solodnInfo *soloboattypes.SolodnInfo) error {
 	var (
-		peer snettypes.Peer
+		peer snet.Peer
 		err  error
 	)
 
 	solodnInfo.LastHeatBeatAtStr = solodnInfo.LastHeatBeatAt.Format("2006-01-02 15:04:05")
-	peer, err = p.SNetDriver.GetPeer(snettypes.StrToPeerID(solodnInfo.SrpcPeerID))
+	peer, err = p.SNetDriver.GetPeer(snet.StrToPeerID(solodnInfo.SrpcPeerID))
 	if err != nil {
 		return err
 	}
 	solodnInfo.SrpcServerAddr = peer.AddressStr()
 
-	peer, err = p.SNetDriver.GetPeer(snettypes.StrToPeerID(solodnInfo.WebPeerID))
+	peer, err = p.SNetDriver.GetPeer(snet.StrToPeerID(solodnInfo.WebPeerID))
 	if err != nil {
 		return err
 	}

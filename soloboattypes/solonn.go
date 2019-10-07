@@ -1,7 +1,7 @@
 package soloboattypes
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solofsapitypes"
 	"time"
 	"unsafe"
@@ -31,7 +31,7 @@ func EncodeSolonnInfoJSON(solonnInfo SolonnInfo) SolonnInfoJSON {
 }
 
 type SolonnInfo struct {
-	snettypes.PeerID
+	snet.PeerID
 	LastHeatBeatAt    time.Time
 	LastHeatBeatAtStr string
 	SrpcServerAddr    string

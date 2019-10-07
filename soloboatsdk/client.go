@@ -1,17 +1,17 @@
 package soloboatsdk
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/soloosbase"
 )
 
 type Client struct {
 	soloosEnv       *soloosbase.SoloosEnv
-	soloboatWebPeer snettypes.Peer
+	soloboatWebPeer snet.Peer
 }
 
 func (p *Client) Init(soloosEnv *soloosbase.SoloosEnv,
-	soloboatWebPeerID snettypes.PeerID) error {
+	soloboatWebPeerID snet.PeerID) error {
 	var err error
 
 	p.soloosEnv = soloosEnv

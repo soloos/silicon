@@ -2,7 +2,7 @@ package sidecar
 
 import (
 	"soloos/common/iron"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solodbapi"
 	"soloos/common/soloosbase"
 	"soloos/soloboat/sidecartypes"
@@ -48,7 +48,7 @@ func (p *SidecarDriver) Close() error {
 
 func (p *SidecarDriver) SidecarHeartBeat(heartbeat sidecartypes.SidecarHeartBeat) error {
 	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.WebPeerID)
+	var peerID = snet.StrToPeerID(heartbeat.WebPeerID)
 	var uObject, afterSetNewObj = p.SidecarTable.MustGetObject(peerID)
 	var uSidecarInfo = soloboattypes.SidecarInfoUintptr(uObject)
 	if afterSetNewObj != nil {
@@ -67,11 +67,11 @@ func (p *SidecarDriver) SidecarHeartBeat(heartbeat sidecartypes.SidecarHeartBeat
 
 func (p *SidecarDriver) FormatSidecarInfo(SidecarInfo *soloboattypes.SidecarInfo) error {
 	var (
-		peer snettypes.Peer
+		peer snet.Peer
 		err  error
 	)
 
-	peer, err = p.SNetDriver.GetPeer(snettypes.StrToPeerID(SidecarInfo.WebPeerID))
+	peer, err = p.SNetDriver.GetPeer(snet.StrToPeerID(SidecarInfo.WebPeerID))
 	if err != nil {
 		return err
 	}

@@ -1,7 +1,7 @@
 package solonn
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solofsapitypes"
 	"soloos/soloboat/soloboattypes"
 	"time"
@@ -9,7 +9,7 @@ import (
 
 func (p *SolonnDriver) SolonnHeartBeat(heartbeat solofsapitypes.SolonnHeartBeat) error {
 	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SrpcPeerID)
+	var peerID = snet.StrToPeerID(heartbeat.SrpcPeerID)
 	var iptr, exists = p.solonnTable.Load(peerID)
 	var solonnInfo = soloboattypes.SolonnInfo{PeerID: peerID}
 	if exists {

@@ -1,12 +1,12 @@
 package soloboat
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"sort"
 	"strings"
 )
 
-func SortSNetPeerJSON(nodes []snettypes.PeerJSON) {
+func SortSNetPeerJSON(nodes []snet.PeerJSON) {
 	sort.Slice(nodes, func(i, j int) bool {
 		var r = strings.Compare(nodes[i].PeerID, nodes[j].PeerID)
 		if r != 0 {

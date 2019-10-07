@@ -2,7 +2,7 @@ package solomq
 
 import (
 	"soloos/common/iron"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/soloosbase"
 	"soloos/soloboat/soloboattypes"
 	"sync"
@@ -36,19 +36,19 @@ func (p *SolomqDriver) Close() error {
 
 func (p *SolomqDriver) FormatSolomqInfo(solomqSolomqInfo *soloboattypes.SolomqInfo) error {
 	var (
-		peer snettypes.Peer
+		peer snet.Peer
 		err  error
 	)
 
 	solomqSolomqInfo.LastHeatBeatAtStr = solomqSolomqInfo.LastHeatBeatAt.Format("2006-01-02 15:04:05")
-	peer, err = p.SNetDriver.GetPeer(snettypes.StrToPeerID(solomqSolomqInfo.SrpcPeerID))
+	peer, err = p.SNetDriver.GetPeer(snet.StrToPeerID(solomqSolomqInfo.SrpcPeerID))
 	if err != nil {
 		return err
 	}
 	solomqSolomqInfo.SrpcServerAddr = peer.AddressStr()
 
 	//TODO enable WebServer
-	peer, _ = p.SNetDriver.GetPeer(snettypes.StrToPeerID(solomqSolomqInfo.WebPeerID))
+	peer, _ = p.SNetDriver.GetPeer(snet.StrToPeerID(solomqSolomqInfo.WebPeerID))
 	solomqSolomqInfo.WebServerAddr = peer.AddressStr()
 
 	return nil

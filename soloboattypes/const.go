@@ -1,7 +1,7 @@
 package soloboattypes
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 )
 
 const (
@@ -9,5 +9,5 @@ const (
 )
 
 var (
-	DefaultSoloboatRPCProtocol = snettypes.ProtocolSoloboat
+	DefaultSoloboatRPCProtocol = snet.ProtocolSoloboat
 )

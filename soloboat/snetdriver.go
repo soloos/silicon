@@ -3,7 +3,7 @@ package soloboat
 import (
 	"soloos/common/iron"
 	"soloos/common/log"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solodbapi"
 	"soloos/common/soloosbase"
 	"soloos/soloboat/soloboattypes"
@@ -46,7 +46,7 @@ func (p *SNetDriver) ServerName() string {
 func (p *SNetDriver) Serve() error {
 	var err error
 
-	err = p.ListSNetPeerFromDB(func(peer snettypes.Peer) bool {
+	err = p.ListSNetPeerFromDB(func(peer snet.Peer) bool {
 		var err = p.SoloosEnv.SNetDriver.RegisterPeer(peer)
 		if err != nil {
 			log.Error("RegisterPeer error, err:", err)

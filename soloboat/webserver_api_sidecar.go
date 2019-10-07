@@ -2,7 +2,7 @@ package soloboat
 
 import (
 	"soloos/common/iron"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/soloboat/sidecartypes"
 )
 
@@ -14,10 +14,10 @@ func (p *WebServer) apiSidecarHeartBeat(ir *iron.Request) {
 
 	err = ir.DecodeBodyJSONData(&heartbeat)
 	if err != nil {
-		ir.ApiOutput(nil, snettypes.CODE_502, err.Error())
+		ir.ApiOutput(nil, snet.CODE_502, err.Error())
 		return
 	}
 
 	p.soloboatIns.sideCarDriver.SidecarHeartBeat(heartbeat)
-	ir.ApiOutput(nil, snettypes.CODE_OK, "heartbeat success")
+	ir.ApiOutput(nil, snet.CODE_OK, "heartbeat success")
 }

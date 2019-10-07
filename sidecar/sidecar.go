@@ -1,7 +1,7 @@
 package sidecar
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/soloosbase"
 	"soloos/common/util"
 )
@@ -12,12 +12,12 @@ type Sidecar struct {
 	SolomqDriver SolomqDriver
 	BadgerDriver BadgerDriver
 
-	srpcPeer snettypes.Peer
-	webPeer  snettypes.Peer
+	srpcPeer snet.Peer
+	webPeer  snet.Peer
 
 	WebServer WebServer
 
-	heartBeatServerOptionsArr []snettypes.HeartBeatServerOptions
+	heartBeatServerOptionsArr []snet.HeartBeatServerOptions
 }
 
 func (p *Sidecar) Init(soloosEnv *soloosbase.SoloosEnv, options Options) error {

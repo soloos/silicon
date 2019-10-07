@@ -1,7 +1,7 @@
 package solomq
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solomqapitypes"
 	"soloos/soloboat/soloboattypes"
 	"time"
@@ -9,7 +9,7 @@ import (
 
 func (p *SolomqDriver) SolomqHeartBeat(heartbeat solomqapitypes.SolomqHeartBeat) error {
 	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SrpcPeerID)
+	var peerID = snet.StrToPeerID(heartbeat.SrpcPeerID)
 	var iptr, exists = p.solomqSolomqTable.Load(peerID)
 	var solomqSolomqInfo = soloboattypes.SolomqInfo{PeerID: peerID}
 	if exists {

@@ -1,7 +1,7 @@
 package soloboatsdk
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/soloboat/soloboattypes"
 )
 
@@ -10,5 +10,5 @@ type SidecarInfoReq struct {
 }
 
 type SidecarInfoResp struct {
-	snettypes.RespDataCommon
+	snet.RespDataCommon
 }

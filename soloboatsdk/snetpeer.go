@@ -1,11 +1,11 @@
 package soloboatsdk
 
-import "soloos/common/snettypes"
+import "soloos/common/snet"
 
 type HeartBeatReq struct {
 	PeerID string
 }
 
 type HeartBeatResp struct {
-	snettypes.RespDataCommon
+	snet.RespDataCommon
 }

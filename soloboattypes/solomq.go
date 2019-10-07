@@ -1,7 +1,7 @@
 package soloboattypes
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solomqapitypes"
 	"time"
 	"unsafe"
@@ -37,7 +37,7 @@ func (u SolomqInfoUintptr) Ptr() *SolomqInfo {
 }
 
 type SolomqInfo struct {
-	snettypes.PeerID
+	snet.PeerID
 	LastHeatBeatAt    time.Time
 	LastHeatBeatAtStr string
 	SrpcServerAddr    string

@@ -2,12 +2,12 @@ package soloboat
 
 import (
 	"database/sql"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solodbapi"
 	"soloos/common/solofsapitypes"
 )
 
-type ListSNetPeerFromDB func(peer snettypes.Peer) bool
+type ListSNetPeerFromDB func(peer snet.Peer) bool
 
 func (p *SNetDriver) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
 	var (
@@ -16,7 +16,7 @@ func (p *SNetDriver) ListSNetPeerFromDB(listPeer ListSNetPeerFromDB) error {
 		peerIDStr   string
 		addrStr     string
 		protocolStr string
-		peer        snettypes.Peer
+		peer        snet.Peer
 		err         error
 	)
 
@@ -52,11 +52,11 @@ QUERY_DONE:
 	return err
 }
 
-func (p *SNetDriver) FetchSNetPeerFromDB(peerID snettypes.PeerID) (snettypes.Peer, error) {
+func (p *SNetDriver) FetchSNetPeerFromDB(peerID snet.PeerID) (snet.Peer, error) {
 	var (
 		sess        solodbapi.Session
 		sqlRows     *sql.Rows
-		peer        snettypes.Peer
+		peer        snet.Peer
 		addrStr     string
 		protocolStr string
 		err         error
@@ -95,7 +95,7 @@ QUERY_DONE:
 	return peer, err
 }
 
-func (p *SNetDriver) RegisterSNetPeerInDB(peer snettypes.Peer) error {
+func (p *SNetDriver) RegisterSNetPeerInDB(peer snet.Peer) error {
 	var (
 		sess solodbapi.Session
 		err  error

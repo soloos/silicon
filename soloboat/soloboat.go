@@ -2,7 +2,7 @@ package soloboat
 
 import (
 	"soloos/common/iron"
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solodbapi"
 	"soloos/common/soloosbase"
 	"soloos/soloboat/soloboattypes"
@@ -11,7 +11,7 @@ import (
 type Soloboat struct {
 	*soloosbase.SoloosEnv
 	options SoloboatOptions
-	webPeer snettypes.Peer
+	webPeer snet.Peer
 
 	dbConn solodbapi.Connection
 
@@ -23,7 +23,7 @@ type Soloboat struct {
 }
 
 func (p *Soloboat) initSNetPeer() error {
-	p.webPeer.ID = snettypes.StrToPeerID(p.options.WebPeerID)
+	p.webPeer.ID = snet.StrToPeerID(p.options.WebPeerID)
 	p.webPeer.SetAddress(p.options.WebServerOptions.ServeStr)
 	p.webPeer.ServiceProtocol = soloboattypes.DefaultSoloboatRPCProtocol
 
@@ -99,7 +99,7 @@ func (p *Soloboat) Init(soloosEnv *soloosbase.SoloosEnv, options SoloboatOptions
 	return nil
 }
 
-func (p *Soloboat) GetWebPeer() snettypes.Peer {
+func (p *Soloboat) GetWebPeer() snet.Peer {
 	return p.webPeer
 }
 

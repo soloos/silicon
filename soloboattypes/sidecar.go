@@ -1,7 +1,7 @@
 package soloboattypes
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/soloboat/sidecartypes"
 	"soloos/solodb/offheap"
 	"time"
@@ -46,6 +46,6 @@ type SidecarInfo struct {
 	sidecartypes.SidecarHeartBeat
 }
 
-func (p *SidecarInfo) PeerID() snettypes.PeerID { return snettypes.PeerID(p.ID) }
+func (p *SidecarInfo) PeerID() snet.PeerID { return snet.PeerID(p.ID) }
 
-func (p *SidecarInfo) PeerIDStr() string { return snettypes.PeerID(p.ID).Str() }
+func (p *SidecarInfo) PeerIDStr() string { return snet.PeerID(p.ID).Str() }

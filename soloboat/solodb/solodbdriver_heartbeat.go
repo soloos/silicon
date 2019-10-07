@@ -1,7 +1,7 @@
 package solodb
 
 import (
-	"soloos/common/snettypes"
+	"soloos/common/snet"
 	"soloos/common/solodbapitypes"
 	"soloos/soloboat/soloboattypes"
 	"time"
@@ -9,7 +9,7 @@ import (
 
 func (p *SolodbDriver) SolodbHeartBeat(heartbeat solodbapitypes.SolodbHeartBeat) error {
 	var err error
-	var peerID = snettypes.StrToPeerID(heartbeat.SrpcPeerID)
+	var peerID = snet.StrToPeerID(heartbeat.SrpcPeerID)
 	var iptr, exists = p.solodbTable.Load(peerID)
 	var solodbInfo = soloboattypes.SolodbInfo{PeerID: peerID}
 	if exists {
